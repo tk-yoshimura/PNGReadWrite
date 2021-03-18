@@ -1,0 +1,12 @@
+﻿/.vs
+/dll
+/packages
+/**/bin
+/**/obj
+/**/dll
+/**/*.png
+/**/*.jpg
+/TestResults
+/PngSuite-2017jul19
+/PngSuite-2017jul19_result
+/testimg

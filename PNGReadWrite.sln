@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PNGReadWrite", "PNGReadWrite\PNGReadWrite.csproj", "{9E3599B3-948A-4BD6-876A-749408B927B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PNGReadWriteTest", "PNGReadWriteTest\PNGReadWriteTest.csproj", "{89CDD4AE-D3F0-4774-B870-EADAF3BE04E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E3599B3-948A-4BD6-876A-749408B927B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3599B3-948A-4BD6-876A-749408B927B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3599B3-948A-4BD6-876A-749408B927B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3599B3-948A-4BD6-876A-749408B927B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89CDD4AE-D3F0-4774-B870-EADAF3BE04E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89CDD4AE-D3F0-4774-B870-EADAF3BE04E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89CDD4AE-D3F0-4774-B870-EADAF3BE04E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89CDD4AE-D3F0-4774-B870-EADAF3BE04E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFD0EF57-AB4B-466E-91E0-5D4B652E3858}
+	EndGlobalSection
+EndGlobal
