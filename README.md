@@ -7,7 +7,8 @@
  .NET 6 - windows
 
 ## Install
-[Download DLL](https://github.com/tk-yoshimura/PNGReadWrite/releases)
+[Download DLL](https://github.com/tk-yoshimura/PNGReadWrite/releases)  
+[Download Nuget](https://www.nuget.org/packages/tyoshimura.PNGReadWrite/)  
 
 - Nuget include: System.Drawing.Common
 - Enable WPF (*.csproj)
