@@ -15,7 +15,7 @@ namespace PNGReadWrite {
             PNGPixelArray pixelarray = new PNGPixelArray(width, height);
 
             for (int iy = y, oy = 0; oy < height; iy++, oy++) {
-                Array.Copy(Pixels, (x + iy * Width) * 4, pixelarray.Pixels, oy * width * 4, width * 4); 
+                Array.Copy(Pixels, (x + iy * Width) * 4, pixelarray.Pixels, oy * width * 4, width * 4);
             }
 
             return pixelarray;
@@ -28,7 +28,7 @@ namespace PNGReadWrite {
             }
 
             for (int oy = y, iy = 0; iy < pixelarray.Height; iy++, oy++) {
-                Array.Copy(pixelarray.Pixels, iy * pixelarray.Width * 4, Pixels, (x + oy * Width) * 4, pixelarray.Width * 4); 
+                Array.Copy(pixelarray.Pixels, iy * pixelarray.Width * 4, Pixels, (x + oy * Width) * 4, pixelarray.Width * 4);
             }
         }
     }

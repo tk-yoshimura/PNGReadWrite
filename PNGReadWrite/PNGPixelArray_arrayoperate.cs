@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace PNGReadWrite {
     public partial class PNGPixelArray {

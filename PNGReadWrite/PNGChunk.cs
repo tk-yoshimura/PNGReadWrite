@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PNGReadWrite {
     internal class PNGChunk {
-        private readonly static UInt32[] crc_table;
+        private static readonly UInt32[] crc_table;
         internal static byte[] Signature => new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
 
         protected byte[] type, data;
@@ -14,7 +14,7 @@ namespace PNGReadWrite {
         internal byte[] Data => data;
         internal string Type => PNGBitConverter.ToString(type);
 
-        internal protected static PNGChunk Create(byte[] type, byte[] data) {
+        protected internal static PNGChunk Create(byte[] type, byte[] data) {
             if (type == null || data == null) {
                 throw new ArgumentNullException($"{nameof(type)}, {nameof(data)}");
             }
@@ -84,7 +84,7 @@ namespace PNGReadWrite {
         static PNGChunk() {
             crc_table = new UInt32[256];
 
-            unchecked { 
+            unchecked {
                 for (int n = 0, k; n < crc_table.Length; n++) {
                     UInt32 c = (UInt32)n;
 
@@ -145,7 +145,7 @@ namespace PNGReadWrite {
     }
 
     internal class PNGgAMAChunk : PNGChunk {
-        internal new static string Type => "gAMA";
+        internal static new string Type => "gAMA";
 
         internal PNGFixed Gamma => PNGBitConverter.ToUInt32(Data, 0);
 
@@ -167,7 +167,7 @@ namespace PNGReadWrite {
     }
 
     internal class PNGsRGBChunk : PNGChunk {
-        internal new static string Type => "sRGB";
+        internal static new string Type => "sRGB";
 
         internal PNGRenderingIntents RenderingIntent => (PNGRenderingIntents)Data[0];
 
@@ -193,7 +193,7 @@ namespace PNGReadWrite {
     }
 
     internal class PNGcHRMChunk : PNGChunk {
-        internal new static string Type => "cHRM";
+        internal static new string Type => "cHRM";
 
         internal PNGcHRMChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {
@@ -239,7 +239,7 @@ namespace PNGReadWrite {
     }
 
     internal class PNGtIMEChunk : PNGChunk {
-        internal new static string Type => "tIME";
+        internal static new string Type => "tIME";
 
         internal PNGtIMEChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {

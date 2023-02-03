@@ -44,7 +44,7 @@ namespace PNGReadWrite {
                 return cr1;
             }
 
-            unchecked { 
+            unchecked {
                 uint a = 0xFFFFu - (((0xFFFFu - a1) * (0xFFFFu - a2) + 0xFFFFu) >> 16);
 
                 if (a <= 0) {

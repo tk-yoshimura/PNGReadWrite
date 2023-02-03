@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PNGReadWrite;
 
 namespace PNGReadWriteTest {
@@ -13,7 +9,7 @@ namespace PNGReadWriteTest {
             const string dirpath = "../../../testimg/";
 
             const int width = 255, height = 128;
-            
+
             PNGPixel[,] arr = new PNGPixel[width, height];
 
             for (int x, y = 0; y < height; y++) {
@@ -29,7 +25,7 @@ namespace PNGReadWriteTest {
             png_copy.Write(dirpath + "pngcopy.png");
 
             PNGPixelArray png_draw = new PNGPixelArray(width, height);
-            
+
             png_draw.RegionDraw(png_copy, 10, 20);
 
             png_draw.Write(dirpath + "pngdraw.png");

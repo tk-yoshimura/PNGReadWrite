@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PNGReadWrite;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PNGReadWrite;
 
 namespace PNGReadWriteTest {
     [TestClass]
     public class ReadWriteTest {
         [TestMethod]
         public void PNGSuiteTest() {
-            const string dirpath = "../../../PngSuite-2017jul19/"; 
-            const string dirpath_result = "../../../PngSuite-2017jul19_result/"; 
+            const string dirpath = "../../../PngSuite-2017jul19/";
+            const string dirpath_result = "../../../PngSuite-2017jul19_result/";
 
             var filepaths = Directory.EnumerateFiles(dirpath, "*.png");
 
@@ -19,11 +19,11 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png = new PNGPixelArray();
 
-            foreach (var filepath in filepaths){
+            foreach (var filepath in filepaths) {
                 string filename = filepath.Substring(dirpath.Length);
                 string filename_withoutext = filename.Substring(0, filename.Length - ".png".Length);
 
-                try{
+                try {
                     png.Read(filepath);
 
                     png.Write($"{dirpath_result}{filename_withoutext}_rgb24.png", PNGFormat.RGB24);
@@ -37,7 +37,7 @@ namespace PNGReadWriteTest {
 
                     Console.WriteLine($"Success {filename}");
                 }
-                catch(Exception e){
+                catch (Exception e) {
                     Console.WriteLine($"Fail    {filename} {e.Message}");
                 }
             }
@@ -86,7 +86,7 @@ namespace PNGReadWriteTest {
             const string dirpath = "../../../testimg/";
 
             const int width = 255, height = 128;
-            
+
             PNGPixel[,] arr = new PNGPixel[width, height];
 
             for (int x, y = 0; y < height; y++) {
@@ -115,7 +115,7 @@ namespace PNGReadWriteTest {
             const string dirpath = "../../../testimg/";
 
             const int width = 32, height = 16;
-            
+
             PNGPixel[,] arr = new PNGPixel[width, height];
 
             for (int x, y = 0; y < height; y++) {
@@ -138,7 +138,7 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(width * height, r.Length);
             Assert.AreEqual(0.25f, r[0], 1e-3f);
             Assert.AreEqual(0.25f, r[width * height - 1], 1e-3f);
-            
+
             Assert.AreEqual(width * height, g.Length);
             Assert.AreEqual(0.50f, g[0], 1e-3f);
             Assert.AreEqual(0.50f, g[width * height - 1], 1e-3f);

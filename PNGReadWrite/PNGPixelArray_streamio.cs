@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
-using System.Drawing;
 
 namespace PNGReadWrite {
     public partial class PNGPixelArray {
