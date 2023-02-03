@@ -52,5 +52,12 @@
 /PngSuite-2017jul19
 /PngSuite-2017jul19_result
 /testimg
+nuget.exe
+nugetpack.bat
+Resource.aps
+/**/*.nuspec
+/**/*.nupkg
+*.csv#
+sandbox
 
 # Safelist
