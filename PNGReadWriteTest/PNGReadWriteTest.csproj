@@ -16,10 +16,17 @@
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Reference Include="PNGReadWrite">
       <HintPath>..\PNGReadWrite\bin\Debug\net6.0-windows\PNGReadWrite.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Reference Include="PNGReadWrite">
+      <HintPath>..\PNGReadWrite\bin\Release\net6.0-windows\PNGReadWrite.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>
