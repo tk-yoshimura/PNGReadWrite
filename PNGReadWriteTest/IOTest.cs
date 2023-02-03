@@ -1,23 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PNGReadWrite;
-using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 
 namespace PNGReadWriteTest {
     [TestClass]
     public class ReadWriteTest {
         [TestMethod]
         public void PNGSuiteTest() {
-            const string dirpath = "../../../PngSuite-2017jul19/";
-            const string dirpath_result = "../../../PngSuite-2017jul19_result/";
+            const string dirpath = "../../../../PngSuite-2017jul19/";
+            const string dirpath_result = "../../../../PngSuite-2017jul19_result/";
 
             var filepaths = Directory.EnumerateFiles(dirpath, "*.png");
 
             Assert.IsTrue(filepaths.Count() > 0, "Please set PNGSuite path...");
 
-            PNGPixelArray png = new PNGPixelArray();
+            PNGPixelArray png = new();
 
             foreach (var filepath in filepaths) {
                 string filename = filepath.Substring(dirpath.Length);
@@ -45,45 +43,45 @@ namespace PNGReadWriteTest {
 
         [TestMethod]
         public void RGBA64Test() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 1023, height = 1023;
 
-            Random rg = new Random();
+            Random rg = new();
 
             ushort[] arr = (new ushort[width * height * 4]).Select((v, idx) => (ushort)rg.Next()).ToArray();
 
-            PNGPixelArray png = new PNGPixelArray(arr, width, height);
+            PNGPixelArray png = new(arr, width, height);
 
             png.Write(dirpath + "rgba64.png", PNGFormat.RGBA64);
 
-            PNGPixelArray png2 = new PNGPixelArray(dirpath + "rgba64.png");
+            PNGPixelArray png2 = new(dirpath + "rgba64.png");
 
             Assert.IsTrue(arr.SequenceEqual(png2.Pixels));
         }
 
         [TestMethod]
         public void RGB48Test() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 1023, height = 1023;
 
-            Random rg = new Random();
+            Random rg = new();
 
             ushort[] arr = (new ushort[width * height * 4]).Select((v, idx) => (idx % 4 != 3) ? (ushort)rg.Next() : (ushort)0xFFFF).ToArray();
 
-            PNGPixelArray png = new PNGPixelArray(arr, width, height);
+            PNGPixelArray png = new(arr, width, height);
 
             png.Write(dirpath + "rgb48.png", PNGFormat.RGB48);
 
-            PNGPixelArray png2 = new PNGPixelArray(dirpath + "rgb48.png");
+            PNGPixelArray png2 = new(dirpath + "rgb48.png");
 
             Assert.IsTrue(arr.SequenceEqual(png2.Pixels));
         }
 
         [TestMethod]
         public void IndexerTest() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 255, height = 128;
 
@@ -95,11 +93,11 @@ namespace PNGReadWriteTest {
                 }
             }
 
-            PNGPixelArray png = new PNGPixelArray(arr);
+            PNGPixelArray png = new(arr);
 
             png.Write(dirpath + "rgba64_4.png", PNGFormat.RGBA64);
 
-            PNGPixelArray png2 = new PNGPixelArray(dirpath + "rgba64_4.png");
+            PNGPixelArray png2 = new(dirpath + "rgba64_4.png");
 
             PNGPixel[,] arr2 = (PNGPixel[,])png2;
 
@@ -112,7 +110,7 @@ namespace PNGReadWriteTest {
 
         [TestMethod]
         public void ChannelsTest() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 32, height = 16;
 
@@ -124,7 +122,7 @@ namespace PNGReadWriteTest {
                 }
             }
 
-            PNGPixelArray png = new PNGPixelArray(arr);
+            PNGPixelArray png = new(arr);
 
             float[] r = png.RedArray;
             float[] g = png.GreenArray;

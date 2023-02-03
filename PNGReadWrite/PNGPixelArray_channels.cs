@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>Rチャネル</summary>
@@ -169,7 +167,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             int g_sft = pixelarray.PixelCounts;
             int b_sft = pixelarray.PixelCounts * 2;
@@ -191,7 +189,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             int g_sft = pixelarray.PixelCounts;
             int b_sft = pixelarray.PixelCounts * 2;
@@ -209,7 +207,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             int g_sft = pixelarray.PixelCounts;
             int b_sft = pixelarray.PixelCounts * 2;
@@ -232,7 +230,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             for (int i = 0, j = 0; i < rgb.Length / 3; i++, j += 3) {
                 pixelarray[i] = PNGPixel.FromSingle(rgb[j], rgb[j + 1], rgb[j + 2], 1);
@@ -251,7 +249,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             for (int i = 0, j = 0; i < rgb.Length / 3; i++, j += 3) {
                 pixelarray[i] = PNGPixel.FromSingle(rgb[j], rgb[j + 1], rgb[j + 2], a[i]);
@@ -266,7 +264,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             for (int i = 0, j = 0; i < rgba.Length / 4; i++, j += 4) {
                 pixelarray[i] = PNGPixel.FromSingle(rgba[j], rgba[j + 1], rgba[j + 2], rgba[j + 3]);
@@ -285,7 +283,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("The specified array length is invalid.");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             for (int i = 0; i < gray.Length; i++) {
                 pixelarray[i] = PNGPixel.FromSingle(gray[i], gray[i], gray[i], 1);

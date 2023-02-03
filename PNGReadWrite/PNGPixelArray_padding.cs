@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>エッジパディング</summary>
@@ -9,7 +7,7 @@ namespace PNGReadWrite {
                 throw new ArgumentOutOfRangeException($"{left_pad}, {right_pad}, {top_pad}, {bottom_pad}");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(checked(Width + left_pad + right_pad), checked(Height + top_pad + bottom_pad));
+            PNGPixelArray pixelarray = new(checked(Width + left_pad + right_pad), checked(Height + top_pad + bottom_pad));
 
             for (int oy = top_pad, iy = 0; iy < Height; iy++, oy++) {
                 Array.Copy(Pixels, iy * Width * 4, pixelarray.Pixels, (left_pad + oy * pixelarray.Width) * 4, Width * 4);
@@ -44,7 +42,7 @@ namespace PNGReadWrite {
                 throw new ArgumentOutOfRangeException($"{left_pad}, {right_pad}, {top_pad}, {bottom_pad}");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(checked(Width + left_pad + right_pad), checked(Height + top_pad + bottom_pad));
+            PNGPixelArray pixelarray = new(checked(Width + left_pad + right_pad), checked(Height + top_pad + bottom_pad));
 
             for (int oy = top_pad, iy = 0; iy < Height; iy++, oy++) {
                 Array.Copy(Pixels, iy * Width * 4, pixelarray.Pixels, (left_pad + oy * pixelarray.Width) * 4, Width * 4);

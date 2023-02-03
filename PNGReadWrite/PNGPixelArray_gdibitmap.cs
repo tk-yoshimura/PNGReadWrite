@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
@@ -32,7 +31,7 @@ namespace PNGReadWrite {
         /// <summary>GDI+ビットマップへ変換</summary>
         /// <remarks>RGBA32で出力する</remarks>
         private Bitmap ToGDIBitmap() {
-            Bitmap bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+            Bitmap bitmap = new(Width, Height, PixelFormat.Format32bppArgb);
 
             byte[] pixels_byte = (byte[])ToRawPixels(PNGFormat.RGBA32);
 
@@ -49,7 +48,7 @@ namespace PNGReadWrite {
 
         /// <summary>GDI+ビットマップから変換</summary>
         public static implicit operator PNGPixelArray(Bitmap bitmap) {
-            PNGPixelArray pixelarray = new PNGPixelArray();
+            PNGPixelArray pixelarray = new();
             pixelarray.FromGDIBitmap(bitmap);
 
             return pixelarray;

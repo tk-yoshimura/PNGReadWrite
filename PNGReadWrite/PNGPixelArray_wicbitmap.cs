@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PNGReadWrite {
@@ -74,7 +73,7 @@ namespace PNGReadWrite {
 
         /// <summary>WICビットマップから変換</summary>
         public static implicit operator PNGPixelArray(BitmapSource bitmap) {
-            PNGPixelArray pixelarray = new PNGPixelArray();
+            PNGPixelArray pixelarray = new();
             pixelarray.FromWICBitmap(bitmap);
 
             return pixelarray;

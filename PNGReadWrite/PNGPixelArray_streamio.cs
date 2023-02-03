@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -18,15 +16,14 @@ namespace PNGReadWrite {
         public void Read(Stream stream, bool crc_check = true) {
             Clear();
 
-            BitmapSource wic_bitmap = null;
+            BitmapSource? wic_bitmap = null;
 
             try {
-                byte[] bytes = null;
 
-                using (MemoryStream stream_memory = new MemoryStream()) {
-                    stream.CopyTo(stream_memory);
-                    bytes = stream_memory.ToArray();
-                }
+                using MemoryStream stream_memory = new();
+                stream.CopyTo(stream_memory);
+
+                byte[] bytes = bytes = stream_memory.ToArray();
 
                 var decoder = new PngBitmapDecoder(stream,
                     BitmapCreateOptions.PreservePixelFormat | BitmapCreateOptions.IgnoreColorProfile | BitmapCreateOptions.IgnoreImageCache,
@@ -50,8 +47,7 @@ namespace PNGReadWrite {
                 FromWICBitmap(wic_bitmap);
             }
             else {
-                Bitmap gdi_bitmap = null;
-
+                Bitmap? gdi_bitmap;
                 try {
                     gdi_bitmap = (Bitmap)Image.FromStream(stream);
                 }
@@ -74,12 +70,10 @@ namespace PNGReadWrite {
 
             encoder.Interlace = PngInterlaceOption.Off;
 
-            byte[] bytes = null;
+            using MemoryStream stream_memory = new();
+            encoder.Save(stream_memory);
 
-            using (MemoryStream stream_memory = new MemoryStream()) {
-                encoder.Save(stream_memory);
-                bytes = stream_memory.ToArray();
-            }
+            byte[] bytes = stream_memory.ToArray();
 
             List<PNGChunk> chunks = PNGChunk.EnumerateChunk(bytes, crc_check: false);
             Metadata.Write(chunks);

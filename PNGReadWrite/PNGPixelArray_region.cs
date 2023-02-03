@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>領域コピー</summary>
@@ -12,7 +10,7 @@ namespace PNGReadWrite {
                 throw new ArgumentOutOfRangeException($"{x}, {y}");
             }
 
-            PNGPixelArray pixelarray = new PNGPixelArray(width, height);
+            PNGPixelArray pixelarray = new(width, height);
 
             for (int iy = y, oy = 0; oy < height; iy++, oy++) {
                 Array.Copy(Pixels, (x + iy * Width) * 4, pixelarray.Pixels, oy * width * 4, width * 4);

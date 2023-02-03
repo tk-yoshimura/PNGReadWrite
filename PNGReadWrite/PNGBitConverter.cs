@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace PNGReadWrite {
     internal static class PNGBitConverter {

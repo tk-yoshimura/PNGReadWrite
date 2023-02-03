@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>生配列からピクセル配列へ変換</summary>

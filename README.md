@@ -4,14 +4,18 @@
  [PNG Suite](http://www.schaik.com/pngsuite/) passed
 
 ## Requirement
- .NET framework v4.7
-
+ .NET 6 - windows
 
 ## Install
 [Download DLL](https://github.com/tk-yoshimura/PNGReadWrite/releases)
 
-- To install, just import the DLL.
-- This library does not change the environment at all.
+- Nuget include: System.Drawing.Common
+- Enable WPF (*.csproj)
+```xml
+<PropertyGroup>
+    <UseWPF>true</UseWPF>
+</PropertyGroup>
+```
 
 ## Licence
 [MIT](https://github.com/tk-yoshimura/PNGReadWrite/blob/main/LICENSE)

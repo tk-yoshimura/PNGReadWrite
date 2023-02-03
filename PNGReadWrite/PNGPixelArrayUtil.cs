@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
 
     /// <summary>ユーティリティ</summary>
     public static class PNGPixelArrayUtil {
@@ -83,7 +81,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
             }
 
-            PNGPixelArray png = new PNGPixelArray(pixelarray1.Size);
+            PNGPixelArray png = new(pixelarray1.Size);
 
             for (int i = 0, length = png.PixelCounts; i < length; i++) {
                 png[i] = blend_func(pixelarray1[i], pixelarray2[i]);

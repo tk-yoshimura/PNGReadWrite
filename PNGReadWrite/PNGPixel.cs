@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace PNGReadWrite {
@@ -167,8 +166,8 @@ namespace PNGReadWrite {
         }
 
         /// <summary>オブジェクト比較</summary>
-        public override bool Equals(object obj) {
-            return obj is PNGPixel && this == (PNGPixel)obj;
+        public override bool Equals(object? obj) {
+            return obj is not null && obj is PNGPixel pixel && this == pixel;
         }
 
         /// <summary>ハッシュ値</summary>

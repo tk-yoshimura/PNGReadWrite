@@ -6,7 +6,7 @@ namespace PNGReadWriteTest {
     public class PaddingTest {
         [TestMethod]
         public void EdgePaddingTest() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 255, height = 128;
 
@@ -18,7 +18,7 @@ namespace PNGReadWriteTest {
                 }
             }
 
-            PNGPixelArray png = new PNGPixelArray(arr);
+            PNGPixelArray png = new(arr);
 
             PNGPixelArray png_pad = png.EdgePadding(2, 3, 5, 7);
 
@@ -27,7 +27,7 @@ namespace PNGReadWriteTest {
 
         [TestMethod]
         public void ZeroPaddingTest() {
-            const string dirpath = "../../../testimg/";
+            const string dirpath = "../../../../testimg/";
 
             const int width = 255, height = 128;
 
@@ -39,7 +39,7 @@ namespace PNGReadWriteTest {
                 }
             }
 
-            PNGPixelArray png = new PNGPixelArray(arr);
+            PNGPixelArray png = new(arr);
 
             PNGPixelArray png_pad = png.ZeroPadding(2, 3, 5, 7);
 

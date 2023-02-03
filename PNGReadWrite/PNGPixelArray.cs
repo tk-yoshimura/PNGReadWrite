@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 
 namespace PNGReadWrite {
@@ -8,7 +7,7 @@ namespace PNGReadWrite {
     public partial class PNGPixelArray : ICloneable {
 
         /// <summary>ピクセル配列</summary>
-        public ushort[] Pixels { get; private set; }
+        public ushort[] Pixels { get; private set; } = new ushort[4];
 
         /// <summary>幅</summary>
         public int Width { get; private set; }
@@ -20,7 +19,7 @@ namespace PNGReadWrite {
         public int PixelCounts => Width * Height;
 
         /// <summary>大きさ</summary>
-        public Size Size => new Size(Width, Height);
+        public Size Size => new(Width, Height);
 
         private PNGMetadata metadata = PNGMetadata.Default;
         /// <summary>メタデータ</summary>

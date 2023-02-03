@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace PNGReadWrite {
     public partial class PNGPixelArray {
@@ -18,7 +17,7 @@ namespace PNGReadWrite {
                 throw new FileNotFoundException(filepath);
             }
 
-            using (FileStream stream = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+            using (FileStream stream = new(filepath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
                 Read(stream, crc_check);
             }
         }

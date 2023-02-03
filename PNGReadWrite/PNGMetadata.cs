@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
 
     /// <summary>メタデータ</summary>
     public class PNGMetadata : ICloneable {
@@ -11,7 +8,7 @@ namespace PNGReadWrite {
         public PNGFixed? Gamma { get; set; } = null;
 
         /// <summary>CIExy色度図代表点</summary>
-        public PNGChromaticityPoints ChromaticityPoints { get; set; } = null;
+        public PNGChromaticityPoints? ChromaticityPoints { get; set; } = null;
 
         /// <summary>色域変換時に優先するレンダリングオプション</summary>
         public PNGRenderingIntents? RenderingIntent { get; set; } = null;
@@ -33,7 +30,7 @@ namespace PNGReadWrite {
         /// <summary>既定値 ガンマ値2.2 D65 sRGB </summary>
         public static PNGMetadata Default {
             get {
-                PNGMetadata metadata = new PNGMetadata() {
+                PNGMetadata metadata = new() {
                     Gamma = 1 / 2.2,
                     ChromaticityPoints = new PNGChromaticityPoints(),
                     RenderingIntent = PNGRenderingIntents.Perceptual,
@@ -76,7 +73,7 @@ namespace PNGReadWrite {
             chunks.RemoveAll((chunk) => chunk.Type == PNGsRGBChunk.Type);
             chunks.RemoveAll((chunk) => chunk.Type == PNGtIMEChunk.Type);
 
-            List<PNGChunk> chunks_insert = new List<PNGChunk>();
+            List<PNGChunk> chunks_insert = new();
 
             if (Gamma != null) {
                 chunks_insert.Add(PNGgAMAChunk.Create(Gamma.Value));
@@ -96,7 +93,7 @@ namespace PNGReadWrite {
 
         /// <summary>クローン</summary>
         public object Clone() {
-            PNGMetadata metadata = new PNGMetadata() {
+            PNGMetadata metadata = new() {
                 Gamma = this.Gamma,
                 ChromaticityPoints = this.ChromaticityPoints != null ? (PNGChromaticityPoints)this.ChromaticityPoints.Clone() : null,
                 RenderingIntent = this.RenderingIntent,
@@ -152,7 +149,7 @@ namespace PNGReadWrite {
 
         /// <summary>既定値 : D65,sRGB</summary>
         /// <remarks>デフォルトコンストラクタに同じ</remarks>
-        public static PNGChromaticityPoints Default => new PNGChromaticityPoints();
+        public static PNGChromaticityPoints Default => new();
 
         /// <summary>文字列化</summary>
         public override string ToString() {
@@ -161,7 +158,7 @@ namespace PNGReadWrite {
 
         /// <summary>クローン</summary>
         public object Clone() {
-            PNGChromaticityPoints points = new PNGChromaticityPoints() {
+            PNGChromaticityPoints points = new() {
                 WhiteX = this.WhiteX,
                 WhiteY = this.WhiteY,
                 RedX = this.RedX,
@@ -188,7 +185,7 @@ namespace PNGReadWrite {
 
         /// <summary>fixedvalへ変換</summary>
         public static implicit operator PNGFixed(double val) {
-            PNGFixed fixedval = new PNGFixed {
+            PNGFixed fixedval = new() {
                 val = (val > 0) ? ((val * val_times <= UInt32.MaxValue) ? (UInt32)(val * val_times) : UInt32.MaxValue) : 0
             };
 
@@ -202,7 +199,7 @@ namespace PNGReadWrite {
 
         /// <summary>fixedvalへ変換</summary>
         public static implicit operator PNGFixed(UInt32 val) {
-            PNGFixed fixedval = new PNGFixed {
+            PNGFixed fixedval = new() {
                 val = val
             };
 
