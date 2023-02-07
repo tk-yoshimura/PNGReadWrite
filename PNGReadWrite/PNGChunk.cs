@@ -290,7 +290,7 @@ namespace PNGReadWrite {
             get {
                 double dpix = Math.Round(PNGBitConverter.ToUInt32(Data, 0) / inch_per_meter * 32) / 32;
                 double dpiy = Math.Round(PNGBitConverter.ToUInt32(Data, 4) / inch_per_meter * 32) / 32;
-                
+
                 return (dpix, dpiy);
             }
         }

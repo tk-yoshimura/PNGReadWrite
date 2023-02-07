@@ -124,7 +124,7 @@ namespace PNGReadWriteTest {
 
             png.Metadata.RenderingIntent = PNGRenderingIntents.Saturation;
             Assert.AreEqual(PNGRenderingIntents.Saturation, png.Metadata.RenderingIntent);
- 
+
             png.Write(dirpath + "pngmetadata_intent.png");
 
             PNGPixelArray png_read = new(dirpath + "pngmetadata_intent.png");
@@ -156,7 +156,7 @@ namespace PNGReadWriteTest {
 
             png.Metadata.RecordTime = time;
             Assert.AreEqual(time, png.Metadata.RecordTime);
- 
+
             png.Write(dirpath + "pngmetadata_recordtime.png");
 
             PNGPixelArray png_read = new(dirpath + "pngmetadata_recordtime.png");
@@ -186,7 +186,7 @@ namespace PNGReadWriteTest {
 
             png.Metadata.Dpi = (192, 192);
             Assert.AreEqual((192, 192), png.Metadata.Dpi);
- 
+
             png.Write(dirpath + "pngmetadata_dpi.png");
 
             PNGPixelArray png_read = new(dirpath + "pngmetadata_dpi.png");
@@ -223,7 +223,7 @@ namespace PNGReadWriteTest {
             Assert.IsNull(png.Metadata.ChromaticityPoints);
             Assert.IsNull(png.Metadata.RenderingIntent);
             Assert.IsNull(png.Metadata.RecordTime);
- 
+
             png.Write(dirpath + "pngmetadata_none.png");
 
             PNGPixelArray png_read = new(dirpath + "pngmetadata_none.png");
