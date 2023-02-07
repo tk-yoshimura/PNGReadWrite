@@ -54,8 +54,7 @@ namespace PNGReadWrite {
                 }
             }
 
-            this.Metadata.DpiX = bitmap.DpiX;
-            this.Metadata.DpiY = bitmap.DpiY;
+            this.Metadata.Dpi = (Math.Round(bitmap.DpiX * 32) / 32, Math.Round(bitmap.DpiY * 32) / 32);
             this.Width = bitmap.PixelWidth;
             this.Height = bitmap.PixelHeight;
         }
@@ -66,7 +65,7 @@ namespace PNGReadWrite {
             Array pixels = ToRawPixels(format);
 
             int stride = (Width * pixel_format.BitsPerPixel + 7) / 8;
-            BitmapSource bitmap = BitmapSource.Create(Width, Height, Metadata.DpiX, Metadata.DpiY, pixel_format, null, pixels, stride);
+            BitmapSource bitmap = BitmapSource.Create(Width, Height, Metadata.Dpi.x, Metadata.Dpi.y, pixel_format, null, pixels, stride);
 
             return bitmap;
         }

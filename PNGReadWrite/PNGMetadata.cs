@@ -1,4 +1,6 @@
-﻿namespace PNGReadWrite {
+﻿using System.Diagnostics;
+
+namespace PNGReadWrite {
 
     /// <summary>メタデータ</summary>
     public class PNGMetadata : ICloneable {
@@ -16,13 +18,11 @@
         /// <summary>作成時間</summary>
         public DateTime? RecordTime { get; set; } = null;
 
-        /// <summary>dpi x</summary>
+        /// <summary>dpi</summary>
         /// <remarks>既定値 : 96</remarks>
-        public double DpiX { get; set; } = 96;
+        public (double x, double y) Dpi { get; set; } = DefaultDpi;
 
-        /// <summary>dpi y</summary>
-        /// <remarks>既定値 : 96</remarks>
-        public double DpiY { get; set; } = 96;
+        public static (double x, double y) DefaultDpi { get; } = (96, 96);
 
         /// <summary>コンストラクタ メタデータ無し</summary>
         public PNGMetadata() { }
@@ -35,8 +35,7 @@
                     ChromaticityPoints = new PNGChromaticityPoints(),
                     RenderingIntent = PNGRenderingIntents.Perceptual,
                     RecordTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now),
-                    DpiX = 96,
-                    DpiY = 96
+                    Dpi = DefaultDpi
                 };
 
                 return metadata;
@@ -49,6 +48,7 @@
             ChromaticityPoints = null;
             RenderingIntent = null;
             RecordTime = null;
+            Dpi = DefaultDpi;
 
             foreach (PNGChunk chunk in chunks) {
                 if (chunk.Type == PNGgAMAChunk.Type) {
@@ -63,6 +63,9 @@
                 else if (chunk.Type == PNGtIMEChunk.Type) {
                     RecordTime = new PNGtIMEChunk(chunk).RecordTime;
                 }
+                else if (chunk.Type == PNGpHYsChunk.Type) {
+                    Dpi = new PNGpHYsChunk(chunk).Dpi;
+                }
             }
         }
 
@@ -72,6 +75,7 @@
             chunks.RemoveAll((chunk) => chunk.Type == PNGcHRMChunk.Type);
             chunks.RemoveAll((chunk) => chunk.Type == PNGsRGBChunk.Type);
             chunks.RemoveAll((chunk) => chunk.Type == PNGtIMEChunk.Type);
+            chunks.RemoveAll((chunk) => chunk.Type == PNGpHYsChunk.Type);
 
             List<PNGChunk> chunks_insert = new();
 
@@ -88,6 +92,8 @@
                 chunks_insert.Add(PNGtIMEChunk.Create(RecordTime.Value));
             }
 
+            chunks_insert.Add(PNGpHYsChunk.Create(Dpi));
+
             chunks.InsertRange(1, chunks_insert);
         }
 
@@ -98,8 +104,7 @@
                 ChromaticityPoints = this.ChromaticityPoints != null ? (PNGChromaticityPoints)this.ChromaticityPoints.Clone() : null,
                 RenderingIntent = this.RenderingIntent,
                 RecordTime = this.RecordTime,
-                DpiX = this.DpiX,
-                DpiY = this.DpiY
+                Dpi = this.Dpi
             };
 
             return metadata;
@@ -124,6 +129,7 @@
 
     /// <summary>CIExy色度図代表点</summary>
     /// <remarks>cHRMチャネル 既定値 : D65,sRGB</remarks>
+    [DebuggerDisplay("{ToString(),nq}")]
     public class PNGChromaticityPoints : ICloneable {
 
         /// <summary>白色点 x</summary>
@@ -174,8 +180,11 @@
     }
 
     /// <summary>PNGファイル形式固定小数点</summary>
+    [DebuggerDisplay("{ToString(),nq}")]
     public struct PNGFixed {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private UInt32 val;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private const UInt32 val_times = 100000;
 
         /// <summary>doubleへ変換</summary>

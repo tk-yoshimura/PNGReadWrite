@@ -259,6 +259,7 @@ namespace PNGReadWrite {
                 return time;
             }
         }
+
         internal static PNGChunk Create(DateTime time) {
             byte[] type = PNGBitConverter.FromString(Type);
 
@@ -266,6 +267,42 @@ namespace PNGReadWrite {
 
             data.AddRange(PNGBitConverter.FromUInt16((UInt16)time.Year));
             data.AddRange(new byte[] { (byte)time.Month, (byte)time.Day, (byte)time.Hour, (byte)time.Minute, (byte)time.Second });
+
+            return Create(type, data.ToArray());
+        }
+    }
+
+    internal class PNGpHYsChunk : PNGChunk {
+        internal static new string Type => "pHYs";
+
+        const double inch_per_meter = 100d / 2.54d;
+
+        internal PNGpHYsChunk(PNGChunk chunk) {
+            if (chunk.Type != Type) {
+                throw new ArgumentException("Mismatch chunk type.", nameof(chunk));
+            }
+
+            this.type = PNGBitConverter.FromString(chunk.Type);
+            this.data = chunk.Data;
+        }
+
+        internal (double x, double y) Dpi {
+            get {
+                double dpix = Math.Round(PNGBitConverter.ToUInt32(Data, 0) / inch_per_meter * 32) / 32;
+                double dpiy = Math.Round(PNGBitConverter.ToUInt32(Data, 4) / inch_per_meter * 32) / 32;
+                
+                return (dpix, dpiy);
+            }
+        }
+
+        internal static PNGChunk Create((double x, double y) dpi) {
+            byte[] type = PNGBitConverter.FromString(Type);
+
+            List<byte> data = new();
+
+            data.AddRange(PNGBitConverter.FromUInt32((UInt32)(dpi.x * inch_per_meter)));
+            data.AddRange(PNGBitConverter.FromUInt32((UInt32)(dpi.y * inch_per_meter)));
+            data.Add(0x01); // meter
 
             return Create(type, data.ToArray());
         }
