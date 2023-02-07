@@ -7,13 +7,20 @@ namespace PNGReadWrite {
     /// <summary>PNGピクセル</summary>
     [StructLayout(LayoutKind.Sequential)]
     [DebuggerDisplay("{ToFloatString(),nq}")]
-    public struct PNGPixel {
+    public partial struct PNGPixel {
         /// <summary>RGB輝度値およびアルファ値</summary>
         public ushort R, G, B, A;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const float inv_rangef = 1f / ushort.MaxValue;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const double inv_ranged = 1d / ushort.MaxValue;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const float epsf = 5e-7f * ushort.MaxValue;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const double epsd = 5e-15d * ushort.MaxValue;
 
         /// <summary>コンストラクタ(uint16)</summary>

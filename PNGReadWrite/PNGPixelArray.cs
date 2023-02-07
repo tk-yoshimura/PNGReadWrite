@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace PNGReadWrite {
 
@@ -182,11 +183,19 @@ namespace PNGReadWrite {
         /// <param name="y">左上を基点とするy座標</param>
         public PNGPixel this[int x, int y] {
             get {
+                if (!InRange(x, y)) {
+                    throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                }
+
                 int index = 4 * (x + y * Width);
 
                 return new PNGPixel(Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]);
             }
             set {
+                if (!InRange(x, y)) {
+                    throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                }
+
                 int index = 4 * (x + y * Width);
 
                 Pixels[index] = value.R;
@@ -194,6 +203,14 @@ namespace PNGReadWrite {
                 Pixels[index + 2] = value.B;
                 Pixels[index + 3] = value.A;
             }
+        }
+
+        /// <summary>インデクサ</summary>
+        /// <param name="x_index">左上を基点とするx座標</param>
+        /// <param name="y_index">左上を基点とするy座標</param>
+        public PNGPixel this[Index x_index, Index y_index] {
+            get => this[x_index.GetOffset(Width), y_index.GetOffset(Height)];
+            set => this[x_index.GetOffset(Width), y_index.GetOffset(Height)] = value;
         }
 
         /// <summary>ピクセル二次配列から変換</summary>
@@ -237,16 +254,19 @@ namespace PNGReadWrite {
         }
 
         /// <summary>領域内か判定</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool InRange(Point pt) {
             return InRange(pt.X, pt.Y);
         }
 
         /// <summary>領域内か判定</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool InRange(int x, int y) {
             return x >= 0 && x < Width && y >= 0 && y < Height;
         }
 
         /// <summary>領域内か判定</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool InRange(uint x, uint y) {
             return x < Width && y < Height;
         }

@@ -22,13 +22,19 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png_copy = png.RegionCopy(10, 20, width - 20, height - 30);
 
+            Assert.AreEqual(width - 20, png_copy.Width);
+            Assert.AreEqual(height - 30, png_copy.Height);
+            Assert.AreEqual(arr[10, 20], png_copy[0, 0]);
+
             png_copy.Write(dirpath + "pngcopy.png");
 
             PNGPixelArray png_draw = new(width, height);
 
-            png_draw.RegionOverwrite(png_copy, 10, 20);
+            png_draw.RegionOverwrite(png_copy, 20, 30);
 
             png_draw.Write(dirpath + "pngoverwrite.png");
+
+            Assert.AreEqual(arr[10, 20], png_draw[20, 30]);
         }
 
         [TestMethod]
@@ -49,13 +55,19 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png_copy = png[10..^20, 20..^30];
 
+            Assert.AreEqual(width - 30, png_copy.Width);
+            Assert.AreEqual(height - 50, png_copy.Height);
+            Assert.AreEqual(arr[10, 20], png_copy[0, 0]);
+
             png_copy.Write(dirpath + "pngcopy_indexer.png");
 
             PNGPixelArray png_draw = new(width, height);
 
-            png_draw[10..(10 + png_copy.Width), 20..(20 + png_copy.Height)] = png_copy;
+            png_draw[20..(20 + png_copy.Width), 30..(30 + png_copy.Height)] = png_copy;
 
             png_draw.Write(dirpath + "pngoverwrite_indexer.png");
+
+            Assert.AreEqual(arr[10, 20], png_draw[20, 30]);
         }
     }
 }
