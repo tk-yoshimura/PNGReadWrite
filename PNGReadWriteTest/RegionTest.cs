@@ -53,7 +53,7 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png_draw = new(width, height);
 
-            png_draw[10..(10+png_copy.Width), 20..(20+png_copy.Height)] = png_copy;
+            png_draw[10..(10 + png_copy.Width), 20..(20 + png_copy.Height)] = png_copy;
 
             png_draw.Write(dirpath + "pngoverwrite_indexer.png");
         }

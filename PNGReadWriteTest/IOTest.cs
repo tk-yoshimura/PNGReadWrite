@@ -18,8 +18,8 @@ namespace PNGReadWriteTest {
             PNGPixelArray png = new();
 
             foreach (var filepath in filepaths) {
-                string filename = filepath.Substring(dirpath.Length);
-                string filename_withoutext = filename.Substring(0, filename.Length - ".png".Length);
+                string filename = filepath[dirpath.Length..];
+                string filename_withoutext = filename[..^".png".Length];
 
                 try {
                     png.Read(filepath);

@@ -24,6 +24,26 @@ namespace PNGReadWrite {
             A = a;
         }
 
+        /// <summary>タプル変換</summary>
+        public static implicit operator PNGPixel((ushort r, ushort g, ushort b) cr) {
+            return new PNGPixel(cr.r, cr.g, cr.b);
+        }
+
+        /// <summary>タプル分解</summary>
+        public void Deconstruct(out ushort r, out ushort g, out ushort b) {
+            (r, g, b) = (R, G, B);
+        }
+
+        /// <summary>タプル変換</summary>
+        public static implicit operator PNGPixel((ushort r, ushort g, ushort b, ushort a) cr) {
+            return new PNGPixel(cr.r, cr.g, cr.b, cr.a);
+        }
+
+        /// <summary>タプル分解</summary>
+        public void Deconstruct(out ushort r, out ushort g, out ushort b, out ushort a) {
+            (r, g, b, a) = (R, G, B, A);
+        }
+
         /// <summary>等色判定</summary>
         public static bool operator ==(PNGPixel cr1, PNGPixel cr2) {
             return cr1.R == cr2.R && cr1.G == cr2.G && cr1.B == cr2.B && cr1.A == cr2.A;

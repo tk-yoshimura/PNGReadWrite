@@ -5,7 +5,7 @@
         public PNGPixelArray EdgePadding(int left_pad, int right_pad, int top_pad, int bottom_pad) {
             if (left_pad < 0 || right_pad < 0 || top_pad < 0 || bottom_pad < 0) {
                 throw new ArgumentOutOfRangeException(
-                    $"{nameof(left_pad)},{nameof(right_pad)},{nameof(top_pad)},{nameof(bottom_pad)}", 
+                    $"{nameof(left_pad)},{nameof(right_pad)},{nameof(top_pad)},{nameof(bottom_pad)}",
                     "Must be non negative integer.");
             }
 
@@ -42,7 +42,7 @@
         public PNGPixelArray ZeroPadding(int left_pad, int right_pad, int top_pad, int bottom_pad) {
             if (left_pad < 0 || right_pad < 0 || top_pad < 0 || bottom_pad < 0) {
                 throw new ArgumentOutOfRangeException(
-                    $"{nameof(left_pad)},{nameof(right_pad)},{nameof(top_pad)},{nameof(bottom_pad)}", 
+                    $"{nameof(left_pad)},{nameof(right_pad)},{nameof(top_pad)},{nameof(bottom_pad)}",
                     "Must be non negative integer.");
             }
 
