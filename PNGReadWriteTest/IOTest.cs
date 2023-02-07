@@ -34,9 +34,11 @@ namespace PNGReadWriteTest {
                     bitmap.Save($"{dirpath_result}{filename_withoutext}_gdi.png");
 
                     Console.WriteLine($"Success {filename}");
+                    Assert.AreNotEqual('x', filename[0]);
                 }
                 catch (Exception e) {
                     Console.WriteLine($"Fail    {filename} {e.Message}");
+                    Assert.AreEqual('x', filename[0]);
                 }
             }
         }
