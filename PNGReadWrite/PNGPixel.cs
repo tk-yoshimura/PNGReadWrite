@@ -6,7 +6,7 @@ namespace PNGReadWrite {
 
     /// <summary>PNGピクセル</summary>
     [StructLayout(LayoutKind.Sequential)]
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToFloatString(),nq}")]
     public struct PNGPixel {
         /// <summary>RGB輝度値およびアルファ値</summary>
         public ushort R, G, B, A;
@@ -201,6 +201,12 @@ namespace PNGReadWrite {
         /// <remarks>16進数表記 RRRR GGGG BBBB AAAA</remarks>
         public override string ToString() {
             return $"{R:X4} {G:X4} {B:X4} {A:X4}";
+        }
+
+        /// <summary>文字列化</summary>
+        /// <remarks>浮動小数点表記 .4f</remarks>
+        public string ToFloatString() {
+            return $"{(R * inv_rangef):F4} {(G * inv_rangef):F4} {(B * inv_rangef):F4} {(A * inv_rangef):F4}";
         }
     }
 }

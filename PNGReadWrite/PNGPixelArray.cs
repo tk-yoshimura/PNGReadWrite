@@ -306,7 +306,7 @@ namespace PNGReadWrite {
         /// <summary>文字列化</summary>
         /// <remarks>幅 x 高さ</remarks>
         public override string ToString() {
-            return $"PNGPixelArray {Width} x {Height}";
+            return $"{Width} x {Height}";
         }
     }
 }
