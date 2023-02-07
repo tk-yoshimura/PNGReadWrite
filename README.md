@@ -48,7 +48,7 @@ png.Read(filepath);
 PNGPixelArray png = new(filepath);
 ```
 
-### GDI+(Bitmap) &lt; - &gt; PNGPixelArray
+### GDI+(Bitmap) &lt;-&gt; PNGPixelArray
 ```cs
 Bitmap bitmap = new(32, 32);
 using (Graphics g = Graphics.FromImage(bitmap)) {
@@ -80,7 +80,7 @@ Assert.AreEqual(PNGPixel.White, png_cross[0, ^1]);
 Assert.AreEqual(PNGPixel.White, png_cross[^1, 0]);
 ```
 
-### WPF(BitmapSource) &lt; - &gt; PNGPixelArray
+### WPF(BitmapSource) &lt;-&gt; PNGPixelArray
 ```cs
 WriteableBitmap bitmapsource = new(32, 32, 96d, 96d, PixelFormats.Rgba64, null);
 
