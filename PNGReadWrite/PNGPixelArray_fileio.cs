@@ -17,16 +17,16 @@ namespace PNGReadWrite {
                 throw new FileNotFoundException(filepath);
             }
 
-            using (FileStream stream = new(filepath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-                Read(stream, crc_check);
-            }
+            using FileStream stream = new(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            Read(stream, crc_check);
         }
 
         /// <summary>ファイル書き込み</summary>
         public void Write(string filepath, PNGFormat format = PNGFormat.RGBA32) {
-            using (Stream stream = new FileStream(filepath, FileMode.Create, FileAccess.Write)) {
-                Write(stream, format);
-            }
+            using Stream stream = new FileStream(filepath, FileMode.Create, FileAccess.Write);
+
+            Write(stream, format);
         }
     }
 }

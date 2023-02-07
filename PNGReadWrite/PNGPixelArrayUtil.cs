@@ -78,7 +78,7 @@
             }
 
             if (pixelarray1.Size != pixelarray2.Size) {
-                throw new ArgumentException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
             }
 
             PNGPixelArray png = new(pixelarray1.Size);

@@ -8,11 +8,11 @@
             }
 
             if (!Enum.IsDefined(typeof(PNGFormat), format) || format == PNGFormat.Undefined) {
-                throw new ArgumentException(nameof(format));
+                throw new NotSupportedException("Unsupported format.");
             }
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException($"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
             }
 
             if (format.Depth() == 8 && pixels.GetType().GetElementType() == typeof(byte)) {
@@ -40,13 +40,13 @@
                 }
             }
 
-            throw new ArgumentException(nameof(pixels));
+            throw new NotSupportedException("Unsupported format.");
         }
 
         /// <summary>PNGフォーマットに準拠した配列へ変換</summary>
         private Array ToRawPixels(PNGFormat format) {
             if (!Enum.IsDefined(typeof(PNGFormat), format) || format == PNGFormat.Undefined) {
-                throw new ArgumentException(nameof(format));
+                throw new NotSupportedException("Unsupported format.");
             }
 
             if (format.Depth() == 8) {
@@ -112,7 +112,7 @@
         /// <summary>uint16 アルファチャネル追加</summary>
         private static ushort[] AddAlphaChannel(ushort[] arr) {
             if ((arr.Length % 3) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             ushort[] ret = new ushort[checked(arr.Length / 3 * 4)];
@@ -138,7 +138,7 @@
         /// <summary>uint8 アルファチャネル追加</summary>
         private static byte[] AddAlphaChannel(byte[] arr) {
             if ((arr.Length % 3) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             byte[] ret = new byte[checked(arr.Length / 3 * 4)];
@@ -165,7 +165,7 @@
         /// <remarks>背景色 : 白</remarks>
         private static ushort[] RemoveAlphaChannel(ushort[] arr) {
             if ((arr.Length % 4) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             ushort[] ret = new ushort[checked(arr.Length / 4 * 3)];
@@ -195,7 +195,7 @@
         /// <remarks>背景色 : 白</remarks>
         private static byte[] RemoveAlphaChannel(byte[] arr) {
             if ((arr.Length % 4) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             byte[] ret = new byte[checked(arr.Length / 4 * 3)];
@@ -223,7 +223,7 @@
         /// <summary>uint16 RGB swap GBR</summary>
         private static ushort[] RGBswapGBR(ushort[] arr) {
             if ((arr.Length % 3) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             ushort[] ret = new ushort[arr.Length];
@@ -248,7 +248,7 @@
         /// <summary>uint8 RGB swap GBR</summary>
         private static byte[] RGBswapGBR(byte[] arr) {
             if ((arr.Length % 3) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             byte[] ret = new byte[arr.Length];
@@ -273,7 +273,7 @@
         /// <summary>uint16 RGBA swap GBRA</summary>
         private static ushort[] RGBAswapGBRA(ushort[] arr) {
             if ((arr.Length % 4) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             ushort[] ret = new ushort[arr.Length];
@@ -299,7 +299,7 @@
         /// <summary>uint8 RGBA swap GBRA</summary>
         private static byte[] RGBAswapGBRA(byte[] arr) {
             if ((arr.Length % 4) != 0) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException(null, nameof(arr));
             }
 
             byte[] ret = new byte[arr.Length];

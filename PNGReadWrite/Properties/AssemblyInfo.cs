@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("PNGReadWrite")]
-[assembly: AssemblyDescription("PNG file IO - Deep color compatible")]
+[assembly: AssemblyDescription("PNG File IO - Deep color compatible")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PNGReadWrite")]
@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("BD0AE5E2-172E-4E2A-93BA-523FC390A3CA")]
 
-[assembly: AssemblyVersion("4.0.0.*")]
+[assembly: AssemblyVersion("4.1.0.*")]

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -13,13 +14,13 @@ namespace PNGReadWrite {
         /// <exception cref="InvalidDataException">CRCまたはチャンクが不正であるとき</exception>
         /// <exception cref="OverflowException">データサイズが1GB以上、その他オーバーフローが発生したとき</exception>
         /// <remarks>フォーマットがRGB/RGBAかつ色深度が8/16であるときWICで読み込み、そうでないときはGDI+で読み込む</remarks>
+        [SuppressMessage("Interoperability", "CA1416")]
         public void Read(Stream stream, bool crc_check = true) {
             Clear();
 
             BitmapSource? wic_bitmap = null;
 
             try {
-
                 using MemoryStream stream_memory = new();
                 stream.CopyTo(stream_memory);
 
@@ -30,7 +31,7 @@ namespace PNGReadWrite {
                     BitmapCacheOption.OnLoad);
 
                 if (decoder.Frames.Count < 1 || decoder.Frames[0] == null) {
-                    throw new FileFormatException();
+                    throw new FileFormatException("Chunk does not exist.");
                 }
 
                 wic_bitmap = decoder.Frames[0].Clone();

@@ -71,18 +71,13 @@ namespace PNGReadWrite {
 
         /// <summary>PNGフォーマットへ変換からWICピクセルフォーマットへ変換</summary>
         internal static PixelFormat ToPixelFormat(this PNGFormat format) {
-            switch (format) {
-                case PNGFormat.RGB24:
-                    return PixelFormats.Bgr24;
-                case PNGFormat.RGB48:
-                    return PixelFormats.Rgb48;
-                case PNGFormat.RGBA32:
-                    return PixelFormats.Bgra32;
-                case PNGFormat.RGBA64:
-                    return PixelFormats.Rgba64;
-                default:
-                    throw new NotSupportedException(nameof(format));
-            }
+            return format switch {
+                PNGFormat.RGB24 => PixelFormats.Bgr24,
+                PNGFormat.RGB48 => PixelFormats.Rgb48,
+                PNGFormat.RGBA32 => PixelFormats.Bgra32,
+                PNGFormat.RGBA64 => PixelFormats.Rgba64,
+                _ => throw new NotSupportedException("Unsupported format."),
+            };
         }
     }
 }

@@ -19,7 +19,7 @@ namespace PNGReadWrite {
         public int PixelCounts => Width * Height;
 
         /// <summary>大きさ</summary>
-        public Size Size => new(Width, Height);
+        public (int width, int height) Size => (Width, Height);
 
         private PNGMetadata metadata = PNGMetadata.Default;
         /// <summary>メタデータ</summary>
@@ -42,12 +42,12 @@ namespace PNGReadWrite {
         }
 
         /// <summary>コンストラクタ 大きさ指定</summary>
-        public PNGPixelArray(Size size) : this(size.Width, size.Height) { }
+        public PNGPixelArray((int width, int height) size) : this(size.width, size.height) { }
 
         /// <summary>コンストラクタ 大きさ指定</summary>
         public PNGPixelArray(int width, int height) {
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException($"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];
@@ -63,11 +63,11 @@ namespace PNGReadWrite {
             }
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException($"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
             }
 
             if (pixels.Length != checked(4 * width * height)) {
-                throw new ArgumentException($"{nameof(pixels)}");
+                throw new ArgumentException("The specified array length is invalid. (Length = 4 x width x height)", nameof(pixels));
             }
 
             this.Pixels = (ushort[])pixels.Clone();
@@ -85,7 +85,7 @@ namespace PNGReadWrite {
             int width = pixels.GetLength(0), height = pixels.GetLength(1);
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException($"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];
@@ -120,11 +120,11 @@ namespace PNGReadWrite {
             }
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException($"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
             }
 
             if (pixels.Length != checked(width * height)) {
-                throw new ArgumentException($"{nameof(pixels)}");
+                throw new ArgumentException("The specified array length is invalid. (Length = width x height)", nameof(pixels));
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];

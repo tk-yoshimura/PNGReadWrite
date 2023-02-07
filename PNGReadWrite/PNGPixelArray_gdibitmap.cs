@@ -1,11 +1,13 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>GDI+ビットマップから変換</summary>
+        [SuppressMessage("Interoperability", "CA1416")]
         private void FromGDIBitmap(Bitmap bitmap) {
             if (bitmap == null) {
                 Clear();
@@ -30,6 +32,7 @@ namespace PNGReadWrite {
 
         /// <summary>GDI+ビットマップへ変換</summary>
         /// <remarks>RGBA32で出力する</remarks>
+        [SuppressMessage("Interoperability", "CA1416")]
         private Bitmap ToGDIBitmap() {
             Bitmap bitmap = new(Width, Height, PixelFormat.Format32bppArgb);
 

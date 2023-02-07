@@ -15,13 +15,13 @@ namespace PNGReadWrite {
 
         protected internal static PNGChunk Create(byte[] type, byte[] data) {
             if (type == null || data == null) {
-                throw new ArgumentNullException($"{nameof(type)}, {nameof(data)}");
+                throw new ArgumentNullException($"{nameof(type)},{nameof(data)}");
             }
             if (type.Length != 4) {
-                throw new ArgumentException(nameof(type));
+                throw new ArgumentException("Invalid length.", nameof(type));
             }
             if (data.LongLength > int.MaxValue / 2) {
-                throw new OverflowException(nameof(data));
+                throw new OverflowException("Too long data length.");
             }
 
             PNGChunk chunk = new() {
@@ -37,7 +37,7 @@ namespace PNGReadWrite {
                 throw new ArgumentNullException(nameof(bin));
             }
             if (start_index > int.MaxValue / 2) {
-                throw new OverflowException();
+                throw new OverflowException("Too long data length.");
             }
             if (bin.LongLength - start_index < 12) {
                 throw new InvalidDataException("Invalid chunk exists.");
@@ -45,7 +45,7 @@ namespace PNGReadWrite {
 
             UInt32 length = PNGBitConverter.ToUInt32(bin, start_index);
             if (length > int.MaxValue / 2) {
-                throw new OverflowException();
+                throw new OverflowException("Too long data length.");
             }
             if (bin.LongLength - start_index < length + 12) {
                 throw new InvalidDataException("Invalid chunk exists.");
@@ -111,7 +111,7 @@ namespace PNGReadWrite {
 
         internal static List<PNGChunk> EnumerateChunk(byte[] bin, bool crc_check = false) {
             if (bin.LongLength > int.MaxValue / 2) {
-                throw new ArgumentException(nameof(bin));
+                throw new ArgumentException("Too long data length.");
             }
 
             List<PNGChunk> chunks = new();
@@ -150,7 +150,7 @@ namespace PNGReadWrite {
 
         internal PNGgAMAChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {
-                throw new ArgumentException(nameof(chunk));
+                throw new ArgumentException("Mismatch chunk type.", nameof(chunk));
             }
 
             this.type = PNGBitConverter.FromString(chunk.Type);
@@ -172,7 +172,7 @@ namespace PNGReadWrite {
 
         internal PNGsRGBChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {
-                throw new ArgumentException(nameof(chunk));
+                throw new ArgumentException("Mismatch chunk type.", nameof(chunk));
             }
 
             this.type = PNGBitConverter.FromString(chunk.Type);
@@ -181,7 +181,7 @@ namespace PNGReadWrite {
 
         internal static PNGChunk Create(PNGRenderingIntents rendering_intent) {
             if (!Enum.IsDefined(typeof(PNGRenderingIntents), rendering_intent)) {
-                throw new ArgumentException(nameof(rendering_intent));
+                throw new ArgumentException("Unsupported rendering intents.", nameof(rendering_intent));
             }
 
             byte[] type = PNGBitConverter.FromString(Type);
@@ -196,7 +196,7 @@ namespace PNGReadWrite {
 
         internal PNGcHRMChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {
-                throw new ArgumentException(nameof(chunk));
+                throw new ArgumentException("Mismatch chunk type.", nameof(chunk));
             }
 
             this.type = PNGBitConverter.FromString(chunk.Type);
@@ -242,7 +242,7 @@ namespace PNGReadWrite {
 
         internal PNGtIMEChunk(PNGChunk chunk) {
             if (chunk.Type != Type) {
-                throw new ArgumentException(nameof(chunk));
+                throw new ArgumentException("Mismatch chunk type.", nameof(chunk));
             }
 
             this.type = PNGBitConverter.FromString(chunk.Type);

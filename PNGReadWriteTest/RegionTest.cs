@@ -26,7 +26,7 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png_draw = new(width, height);
 
-            png_draw.RegionDraw(png_copy, 10, 20);
+            png_draw.RegionOverwrite(png_copy, 10, 20);
 
             png_draw.Write(dirpath + "pngdraw.png");
         }

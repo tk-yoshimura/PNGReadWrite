@@ -14,7 +14,7 @@ namespace PNGReadWrite {
             PNGFormat format = bitmap.Format.ToPNGFormat();
             if (format == PNGFormat.Undefined) {
                 Clear();
-                throw new NotSupportedException("Invalid image pixel format");
+                throw new NotSupportedException("Invalid image pixel format.");
             }
 
             int stride = (bitmap.PixelWidth * bitmap.Format.BitsPerPixel + 7) / 8;
