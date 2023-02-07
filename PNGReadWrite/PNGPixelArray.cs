@@ -1,9 +1,11 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 
 namespace PNGReadWrite {
 
     /// <summary>PNGピクセルデータ</summary>
+    [DebuggerDisplay("{ToString(),nq}")]
     public partial class PNGPixelArray : ICloneable {
 
         /// <summary>ピクセル配列</summary>

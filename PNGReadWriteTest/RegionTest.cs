@@ -5,7 +5,7 @@ namespace PNGReadWriteTest {
     [TestClass]
     public class RegionTest {
         [TestMethod]
-        public void RegionCopyDrawTest() {
+        public void RegionCopyOverwriteTest() {
             const string dirpath = "../../../../testimg/";
 
             const int width = 255, height = 128;
@@ -28,7 +28,34 @@ namespace PNGReadWriteTest {
 
             png_draw.RegionOverwrite(png_copy, 10, 20);
 
-            png_draw.Write(dirpath + "pngdraw.png");
+            png_draw.Write(dirpath + "pngoverwrite.png");
+        }
+
+        [TestMethod]
+        public void RegionCopyOverwriteIndexderTest() {
+            const string dirpath = "../../../../testimg/";
+
+            const int width = 255, height = 128;
+
+            PNGPixel[,] arr = new PNGPixel[width, height];
+
+            for (int x, y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    arr[x, y] = new PNGPixel((ushort)(x * 257), (ushort)(y * 257), 0);
+                }
+            }
+
+            PNGPixelArray png = new(arr);
+
+            PNGPixelArray png_copy = png[10..^20, 20..^30];
+
+            png_copy.Write(dirpath + "pngcopy_indexer.png");
+
+            PNGPixelArray png_draw = new(width, height);
+
+            png_draw[10..(10+png_copy.Width), 20..(20+png_copy.Height)] = png_copy;
+
+            png_draw.Write(dirpath + "pngoverwrite_indexer.png");
         }
     }
 }

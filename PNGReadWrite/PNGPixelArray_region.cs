@@ -35,14 +35,28 @@
         /// <param name="y_range">y軸範囲</param>
         public PNGPixelArray this[Range x_range, Range y_range] {
             get {
-                (int x, int width)  = x_range.GetOffsetAndLength(Width);
-                (int y, int height) = y_range.GetOffsetAndLength(Height);
+                int x, y, width, height;
+
+                try {
+                    (x, width) = x_range.GetOffsetAndLength(Width);
+                    (y, height) = y_range.GetOffsetAndLength(Height);
+                }
+                catch (ArgumentOutOfRangeException) {
+                    throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "The specified coordinates is out of bounds.");
+                }
 
                 return RegionCopy(x, y, width, height);
             }
             set {
-                (int x, int width)  = x_range.GetOffsetAndLength(Width);
-                (int y, int height) = y_range.GetOffsetAndLength(Height);
+                int x, y, width, height;
+
+                try {
+                    (x, width) = x_range.GetOffsetAndLength(Width);
+                    (y, height) = y_range.GetOffsetAndLength(Height);
+                }
+                catch (ArgumentOutOfRangeException) {
+                    throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "The specified coordinates is out of bounds.");
+                }
 
                 if ((width, height) != value.Size) {
                     throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "Mismatch size.");

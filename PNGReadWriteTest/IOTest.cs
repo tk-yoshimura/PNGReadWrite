@@ -13,7 +13,7 @@ namespace PNGReadWriteTest {
 
             var filepaths = Directory.EnumerateFiles(dirpath, "*.png");
 
-            Assert.IsTrue(filepaths.Count() > 0, "Please set PNGSuite path...");
+            Assert.IsTrue(filepaths.Any(), "Please set PNGSuite path...");
 
             PNGPixelArray png = new();
 

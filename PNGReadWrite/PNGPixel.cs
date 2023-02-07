@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace PNGReadWrite {
 
     /// <summary>PNGピクセル</summary>
     [StructLayout(LayoutKind.Sequential)]
+    [DebuggerDisplay("{ToString(),nq}")]
     public struct PNGPixel {
         /// <summary>RGB輝度値およびアルファ値</summary>
         public ushort R, G, B, A;
