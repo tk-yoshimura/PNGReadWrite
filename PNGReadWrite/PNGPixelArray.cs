@@ -12,10 +12,12 @@ namespace PNGReadWrite {
         /// <summary>ピクセル配列</summary>
         public ushort[] Pixels { get; private set; } = new ushort[4];
 
-        /// <summary>幅</summary>
+        /// <summary>幅</summary>        
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public int Width { get; private set; }
 
-        /// <summary>高さ</summary>
+        /// <summary>高さ</summary>        
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public int Height { get; private set; }
 
         /// <summary>ピクセル数</summary>
@@ -24,6 +26,7 @@ namespace PNGReadWrite {
         /// <summary>大きさ</summary>
         public (int width, int height) Size => (Width, Height);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private PNGMetadata metadata = PNGMetadata.Default;
         /// <summary>メタデータ</summary>
         public PNGMetadata Metadata {

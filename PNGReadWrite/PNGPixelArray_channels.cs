@@ -1,7 +1,10 @@
-﻿namespace PNGReadWrite {
+﻿using System.Diagnostics;
+
+namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>Rチャネル</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] RedArray {
             get {
                 float[] vs = new float[PixelCounts];
@@ -19,6 +22,7 @@
         }
 
         /// <summary>Gチャネル</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] GreenArray {
             get {
                 float[] vs = new float[PixelCounts];
@@ -36,6 +40,7 @@
         }
 
         /// <summary>Bチャネル</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] BlueArray {
             get {
                 float[] vs = new float[PixelCounts];
@@ -53,6 +58,7 @@
         }
 
         /// <summary>Aチャネル</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] AlphaArray {
             get {
                 float[] vs = new float[PixelCounts];
@@ -70,6 +76,7 @@
         }
 
         /// <summary>RGBチャネルCHW順</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] RGBChannelFirstArray {
             get {
                 float[] vs = new float[PixelCounts * 3];
@@ -93,6 +100,7 @@
         }
 
         /// <summary>RGBチャネルHWC順</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] RGBChannelLastArray {
             get {
                 float[] vs = new float[PixelCounts * 3];
@@ -112,6 +120,7 @@
         }
 
         /// <summary>RGBAチャネルCHW順</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] RGBAChannelFirstArray {
             get {
                 float[] vs = new float[PixelCounts * 4];
@@ -138,6 +147,7 @@
         }
 
         /// <summary>RGBAチャネルHWC順</summary>
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public unsafe float[] RGBAChannelLastArray {
             get {
                 float[] vs = new float[PixelCounts * 4];
