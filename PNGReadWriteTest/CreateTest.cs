@@ -65,6 +65,8 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(width, png.Width);
             Assert.AreEqual(height, png.Height);
             Assert.AreEqual(new PNGPixel((ushort)((width - 1) * 257), (ushort)((height - 2) * 257), 0), png[^1, ^2]);
+
+            CollectionAssert.AreEqual(arr, PNGPixelArray.Dim1Array(png));
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace PNGReadWrite {
+﻿namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>Rチャネル</summary>
@@ -22,7 +20,7 @@ namespace PNGReadWrite {
 
         /// <summary>Gチャネル</summary>
         public static unsafe float[] GreenChannel(PNGPixelArray pixelarray) {
-           int n = pixelarray.PixelCounts;
+            int n = pixelarray.PixelCounts;
 
             float[] vs = new float[n];
 

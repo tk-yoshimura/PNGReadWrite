@@ -111,7 +111,7 @@ namespace PNGReadWrite {
                             }
                         }
                     }
-                    else { 
+                    else {
                         for (int x, y = 0, i = 0; y < height; y++) {
                             for (x = 0; x < width; x++, i += 4) {
                                 PNGPixel cr = pixels[y, x];
@@ -247,7 +247,7 @@ namespace PNGReadWrite {
             if (transposed) {
                 return (PNGPixel[,])pixelarray;
             }
-            else { 
+            else {
                 int width = pixelarray.Width, height = pixelarray.Height;
                 PNGPixel[,] pixels = new PNGPixel[height, width];
 
@@ -279,6 +279,10 @@ namespace PNGReadWrite {
             }
 
             return pixels;
+        }
+
+        public static PNGPixel[] Dim1Array(PNGPixelArray pixelarray) {
+            return (PNGPixel[])pixelarray;
         }
 
         /// <summary>領域内か判定</summary>

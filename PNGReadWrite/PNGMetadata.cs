@@ -115,9 +115,9 @@ namespace PNGReadWrite {
 
         public override string ToString() {
             StringBuilder str = new();
-            
+
             str.Append($"{nameof(Dpi)}: {Dpi}");
-            
+
             if (Gamma is not null) {
                 str.Append($" {nameof(Gamma)}: {Gamma}");
             }
