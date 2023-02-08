@@ -1,4 +1,4 @@
-# PNGReadWrite
+# PNGReadWrite 
  PNG file IO - Deep color compatible
 
  [PNG Suite](http://www.schaik.com/pngsuite/) passed
