@@ -243,6 +243,28 @@ namespace PNGReadWrite {
             return pixels;
         }
 
+        public static PNGPixel[,] Dim2Array(PNGPixelArray pixelarray, bool transposed = true) {
+            if (transposed) {
+                return (PNGPixel[,])pixelarray;
+            }
+            else { 
+                int width = pixelarray.Width, height = pixelarray.Height;
+                PNGPixel[,] pixels = new PNGPixel[height, width];
+
+                unsafe {
+                    fixed (ushort* p_arr = pixelarray.Pixels) {
+                        for (int x, y = 0, i = 0; y < height; y++) {
+                            for (x = 0; x < width; x++, i += 4) {
+                                pixels[y, x] = (p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]);
+                            }
+                        }
+                    }
+                }
+
+                return pixels;
+            }
+        }
+
         /// <summary>ピクセル一次配列へ変換</summary>
         /// <remarks>メタデータが損失する</remarks>
         public static explicit operator PNGPixel[](PNGPixelArray pixelarray) {

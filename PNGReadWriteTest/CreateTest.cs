@@ -21,6 +21,9 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(width, png.Width);
             Assert.AreEqual(height, png.Height);
             Assert.AreEqual(new PNGPixel((ushort)((width - 1) * 257), (ushort)((height - 2) * 257), 0), png[^1, ^2]);
+
+            CollectionAssert.AreEqual(arr, PNGPixelArray.Dim2Array(png));
+            CollectionAssert.AreNotEqual(arr, PNGPixelArray.Dim2Array(png, transposed: false));
         }
 
         [TestMethod]
@@ -40,6 +43,9 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(width, png.Width);
             Assert.AreEqual(height, png.Height);
             Assert.AreEqual(new PNGPixel((ushort)((width - 1) * 257), (ushort)((height - 2) * 257), 0), png[^1, ^2]);
+
+            CollectionAssert.AreEqual(arr, PNGPixelArray.Dim2Array(png, transposed: false));
+            CollectionAssert.AreNotEqual(arr, PNGPixelArray.Dim2Array(png));
         }
 
         [TestMethod]
