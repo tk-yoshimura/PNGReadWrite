@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Text;
 
 namespace PNGReadWrite {
 
     /// <summary>メタデータ</summary>
+    [DebuggerDisplay("{ToString(),nq}")]
     public class PNGMetadata : ICloneable {
 
         /// <summary>ガンマ値</summary>
@@ -22,6 +24,7 @@ namespace PNGReadWrite {
         /// <remarks>既定値 : 96</remarks>
         public (double x, double y) Dpi { get; set; } = DefaultDpi;
 
+        public static double DefaultGamma { get; } = 1 / 2.2;
         public static (double x, double y) DefaultDpi { get; } = (96, 96);
 
         /// <summary>コンストラクタ メタデータ無し</summary>
@@ -31,8 +34,8 @@ namespace PNGReadWrite {
         public static PNGMetadata Default {
             get {
                 PNGMetadata metadata = new() {
-                    Gamma = 1 / 2.2,
-                    ChromaticityPoints = new PNGChromaticityPoints(),
+                    Gamma = DefaultGamma,
+                    ChromaticityPoints = PNGChromaticityPoints.Default,
                     RenderingIntent = PNGRenderingIntents.Perceptual,
                     RecordTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now),
                     Dpi = DefaultDpi
@@ -109,6 +112,30 @@ namespace PNGReadWrite {
 
             return metadata;
         }
+
+        public override string ToString() {
+            StringBuilder str = new();
+            
+            str.Append($"{nameof(Dpi)}: {Dpi}");
+            
+            if (Gamma is not null) {
+                str.Append($" {nameof(Gamma)}: {Gamma}");
+            }
+
+            if (ChromaticityPoints is not null) {
+                str.Append($" {nameof(ChromaticityPoints)}: {ChromaticityPoints}");
+            }
+
+            if (RenderingIntent is not null) {
+                str.Append($" {nameof(RenderingIntent)}: {RenderingIntent}");
+            }
+
+            if (RecordTime is not null) {
+                str.Append($" {nameof(RecordTime)}: {RecordTime}");
+            }
+
+            return str.ToString();
+        }
     }
 
     /// <summary>色域変換時に優先するレンダリングオプション</summary>
@@ -155,7 +182,7 @@ namespace PNGReadWrite {
 
         /// <summary>既定値 : D65,sRGB</summary>
         /// <remarks>デフォルトコンストラクタに同じ</remarks>
-        public static PNGChromaticityPoints Default => new();
+        public static PNGChromaticityPoints Default { get; } = new();
 
         /// <summary>文字列化</summary>
         public override string ToString() {

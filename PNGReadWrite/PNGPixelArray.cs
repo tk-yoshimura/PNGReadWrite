@@ -83,12 +83,14 @@ namespace PNGReadWrite {
 
         /// <summary>コンストラクタ ピクセル配列指定</summary>
         /// <remarks>ピクセル配列はコピーされる</remarks>
-        public PNGPixelArray(PNGPixel[,] pixels) {
+        public PNGPixelArray(PNGPixel[,] pixels, bool transposed = true) {
             if (pixels == null) {
                 throw new ArgumentNullException(nameof(pixels));
             }
 
-            int width = pixels.GetLength(0), height = pixels.GetLength(1);
+            (int width, int height) = transposed
+                ? (pixels.GetLength(0), pixels.GetLength(1))
+                : (pixels.GetLength(1), pixels.GetLength(0));
 
             if (width <= 0 || height <= 0) {
                 throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
@@ -100,14 +102,22 @@ namespace PNGReadWrite {
 
             unsafe {
                 fixed (ushort* p_arr = this.Pixels) {
-                    for (int x, y = 0, i = 0; y < height; y++) {
-                        for (x = 0; x < width; x++, i += 4) {
-                            PNGPixel cr = pixels[x, y];
+                    if (transposed) {
+                        for (int x, y = 0, i = 0; y < height; y++) {
+                            for (x = 0; x < width; x++, i += 4) {
+                                PNGPixel cr = pixels[x, y];
 
-                            p_arr[i] = cr.R;
-                            p_arr[i + 1] = cr.G;
-                            p_arr[i + 2] = cr.B;
-                            p_arr[i + 3] = cr.A;
+                                (p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]) = cr;
+                            }
+                        }
+                    }
+                    else { 
+                        for (int x, y = 0, i = 0; y < height; y++) {
+                            for (x = 0; x < width; x++, i += 4) {
+                                PNGPixel cr = pixels[y, x];
+
+                                (p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]) = cr;
+                            }
                         }
                     }
                 }
@@ -143,10 +153,7 @@ namespace PNGReadWrite {
                         for (x = 0; x < width; x++, i += 4, j++) {
                             PNGPixel cr = pixels[j];
 
-                            p_arr[i] = cr.R;
-                            p_arr[i + 1] = cr.G;
-                            p_arr[i + 2] = cr.B;
-                            p_arr[i + 3] = cr.A;
+                            (p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]) = cr;
                         }
                     }
                 }
@@ -166,18 +173,17 @@ namespace PNGReadWrite {
         /// <summary>インデクサ</summary>
         /// <param name="i">左上から左方向に数えたインデクス</param>
         public PNGPixel this[int i] {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get {
                 int index = 4 * i;
 
-                return new PNGPixel(Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]);
+                return (Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]);
             }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set {
                 int index = 4 * i;
 
-                Pixels[index] = value.R;
-                Pixels[index + 1] = value.G;
-                Pixels[index + 2] = value.B;
-                Pixels[index + 3] = value.A;
+                (Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]) = value;
             }
         }
 
@@ -192,7 +198,7 @@ namespace PNGReadWrite {
 
                 int index = 4 * (x + y * Width);
 
-                return new PNGPixel(Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]);
+                return (Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]);
             }
             set {
                 if (!InRange(x, y)) {
@@ -201,10 +207,7 @@ namespace PNGReadWrite {
 
                 int index = 4 * (x + y * Width);
 
-                Pixels[index] = value.R;
-                Pixels[index + 1] = value.G;
-                Pixels[index + 2] = value.B;
-                Pixels[index + 3] = value.A;
+                (Pixels[index], Pixels[index + 1], Pixels[index + 2], Pixels[index + 3]) = value;
             }
         }
 
@@ -231,7 +234,7 @@ namespace PNGReadWrite {
                 fixed (ushort* p_arr = pixelarray.Pixels) {
                     for (int x, y = 0, i = 0; y < height; y++) {
                         for (x = 0; x < width; x++, i += 4) {
-                            pixels[x, y] = new PNGPixel(p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]);
+                            pixels[x, y] = (p_arr[i], p_arr[i + 1], p_arr[i + 2], p_arr[i + 3]);
                         }
                     }
                 }
@@ -248,7 +251,7 @@ namespace PNGReadWrite {
             unsafe {
                 fixed (ushort* p_arr = pixelarray.Pixels) {
                     for (int i = 0, j = 0, length = pixels.Length; i < length; i++, j += 4) {
-                        pixels[i] = new PNGPixel(p_arr[j], p_arr[j + 1], p_arr[j + 2], p_arr[j + 3]);
+                        pixels[i] = (p_arr[j], p_arr[j + 1], p_arr[j + 2], p_arr[j + 3]);
                     }
                 }
             }

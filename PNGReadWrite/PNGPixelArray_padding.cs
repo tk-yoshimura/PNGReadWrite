@@ -38,6 +38,11 @@
             return pixelarray;
         }
 
+        /// <summary>エッジパディング</summary>
+        public PNGPixelArray EdgePadding((int left, int right) x_pad, (int top, int bottom) y_pad) {
+            return EdgePadding(x_pad.left, x_pad.right, y_pad.top, y_pad.bottom);
+        }
+
         /// <summary>ゼロパディング</summary>
         public PNGPixelArray ZeroPadding(int left_pad, int right_pad, int top_pad, int bottom_pad) {
             if (left_pad < 0 || right_pad < 0 || top_pad < 0 || bottom_pad < 0) {
@@ -53,6 +58,11 @@
             }
 
             return pixelarray;
+        }
+
+        /// <summary>ゼロパディング</summary>
+        public PNGPixelArray ZeroPadding((int left, int right) x_pad, (int top, int bottom) y_pad) {
+            return ZeroPadding(x_pad.left, x_pad.right, y_pad.top, y_pad.bottom);
         }
     }
 }

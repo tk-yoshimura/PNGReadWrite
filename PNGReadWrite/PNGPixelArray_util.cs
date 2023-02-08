@@ -1,7 +1,7 @@
 ﻿namespace PNGReadWrite {
 
     /// <summary>ユーティリティ</summary>
-    public static class PNGPixelArrayUtil {
+    public partial class PNGPixelArray {
 
         /// <summary>アルファ値が0のピクセルに仮色を設定する</summary>
         /// <param name="pixelarray">ピクセルデータ</param>
@@ -68,6 +68,23 @@
             return pixelarray;
         }
 
+        /// <summary>ピクセル毎に関数適用</summary>
+        /// <param name="pixelarray">ピクセルデータ</param>
+        /// <param name="transform_func">合成関数</param>
+        public static PNGPixelArray Transform(PNGPixelArray pixelarray, Func<PNGPixel, PNGPixel> transform_func) {
+            if (pixelarray == null || transform_func == null) {
+                throw new ArgumentNullException($"{nameof(pixelarray)}, {nameof(transform_func)}");
+            }
+
+            PNGPixelArray png = new(pixelarray.Size);
+
+            for (int i = 0, length = png.PixelCounts; i < length; i++) {
+                png[i] = transform_func(pixelarray[i]);
+            }
+
+            return png;
+        }
+
         /// <summary>PNGを合成する</summary>
         /// <param name="pixelarray1">ピクセルデータ1</param>
         /// <param name="pixelarray2">ピクセルデータ2</param>
@@ -85,6 +102,69 @@
 
             for (int i = 0, length = png.PixelCounts; i < length; i++) {
                 png[i] = blend_func(pixelarray1[i], pixelarray2[i]);
+            }
+
+            return png;
+        }
+
+        /// <summary>PNGを加算合成する</summary>
+        /// <param name="pixelarray1">ピクセルデータ1</param>
+        /// <param name="pixelarray2">ピクセルデータ2</param>
+        public static PNGPixelArray operator +(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
+            if (pixelarray1 == null || pixelarray2 == null) {
+                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            if (pixelarray1.Size != pixelarray2.Size) {
+                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            PNGPixelArray png = new(pixelarray1.Size);
+
+            for (int i = 0, length = png.PixelCounts; i < length; i++) {
+                png[i] = pixelarray1[i] + pixelarray2[i];
+            }
+
+            return png;
+        }
+
+        /// <summary>PNGを減算合成する</summary>
+        /// <param name="pixelarray1">ピクセルデータ1</param>
+        /// <param name="pixelarray2">ピクセルデータ2</param>
+        public static PNGPixelArray operator -(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
+            if (pixelarray1 == null || pixelarray2 == null) {
+                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            if (pixelarray1.Size != pixelarray2.Size) {
+                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            PNGPixelArray png = new(pixelarray1.Size);
+
+            for (int i = 0, length = png.PixelCounts; i < length; i++) {
+                png[i] = pixelarray1[i] - pixelarray2[i];
+            }
+
+            return png;
+        }
+
+        /// <summary>PNGをアルファ合成する</summary>
+        /// <param name="pixelarray1">ピクセルデータ1</param>
+        /// <param name="pixelarray2">ピクセルデータ2</param>
+        public static PNGPixelArray operator *(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
+            if (pixelarray1 == null || pixelarray2 == null) {
+                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            if (pixelarray1.Size != pixelarray2.Size) {
+                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+            }
+
+            PNGPixelArray png = new(pixelarray1.Size);
+
+            for (int i = 0, length = png.PixelCounts; i < length; i++) {
+                png[i] = pixelarray1[i] * pixelarray2[i];
             }
 
             return png;

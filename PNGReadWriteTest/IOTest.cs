@@ -126,14 +126,14 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png = new(arr);
 
-            float[] r = png.RedArray;
-            float[] g = png.GreenArray;
-            float[] b = png.BlueArray;
-            float[] a = png.AlphaArray;
-            float[] rgb_chw = png.RGBChannelFirstArray;
-            float[] rgb_hwc = png.RGBChannelLastArray;
-            float[] rgba_chw = png.RGBAChannelFirstArray;
-            float[] rgba_hwc = png.RGBAChannelLastArray;
+            float[] r = PNGPixelArray.RedChannel(png);
+            float[] g = PNGPixelArray.GreenChannel(png);
+            float[] b = PNGPixelArray.BlueChannel(png);
+            float[] a = PNGPixelArray.AlphaChannel(png);
+            float[] rgb_chw = PNGPixelArray.RGBChannelFirst(png);
+            float[] rgb_hwc = PNGPixelArray.RGBChannelLast(png);
+            float[] rgba_chw = PNGPixelArray.RGBAChannelFirst(png);
+            float[] rgba_hwc = PNGPixelArray.RGBAChannelLast(png);
 
             Assert.AreEqual(width * height, r.Length);
             Assert.AreEqual(0.25f, r[0], 1e-3f);
@@ -187,13 +187,13 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(0.75f, rgba_hwc[width * height * 4 - 2], 1e-3f);
             Assert.AreEqual(1.00f, rgba_hwc[width * height * 4 - 1], 1e-3f);
 
-            PNGPixelArray png_rgb_chw = PNGPixelArray.FromRGBChannelFirstArray(rgb_chw, width, height);
-            PNGPixelArray png_rgb_a_chw = PNGPixelArray.FromRGBChannelFirstArray(rgb_chw, a, width, height);
-            PNGPixelArray png_rgba_chw = PNGPixelArray.FromRGBAChannelFirstArray(rgba_chw, width, height);
+            PNGPixelArray png_rgb_chw = PNGPixelArray.FromRGBChannelFirst(rgb_chw, width, height);
+            PNGPixelArray png_rgb_a_chw = PNGPixelArray.FromRGBChannelFirst(rgb_chw, a, width, height);
+            PNGPixelArray png_rgba_chw = PNGPixelArray.FromRGBAChannelFirst(rgba_chw, width, height);
 
-            PNGPixelArray png_rgb_hwc = PNGPixelArray.FromRGBChannelLastArray(rgb_hwc, width, height);
-            PNGPixelArray png_rgb_a_hwc = PNGPixelArray.FromRGBChannelLastArray(rgb_hwc, a, width, height);
-            PNGPixelArray png_rgba_hwc = PNGPixelArray.FromRGBAChannelLastArray(rgba_hwc, width, height);
+            PNGPixelArray png_rgb_hwc = PNGPixelArray.FromRGBChannelLast(rgb_hwc, width, height);
+            PNGPixelArray png_rgb_a_hwc = PNGPixelArray.FromRGBChannelLast(rgb_hwc, a, width, height);
+            PNGPixelArray png_rgba_hwc = PNGPixelArray.FromRGBAChannelLast(rgba_hwc, width, height);
 
             PNGPixelArray png_gray = PNGPixelArray.FromGrayscale(r, width, height);
 

@@ -232,6 +232,8 @@ namespace PNGReadWriteTest {
             Assert.IsNull(png_read.Metadata.ChromaticityPoints);
             Assert.IsNull(png_read.Metadata.RenderingIntent);
             Assert.IsNull(png_read.Metadata.RecordTime);
+
+            Assert.AreEqual("Dpi: (192, 192)", png_read.Metadata.ToString());
         }
     }
 }

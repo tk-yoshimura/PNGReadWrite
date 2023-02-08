@@ -20,7 +20,7 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png = new(arr);
 
-            PNGPixelArray png_pad = png.EdgePadding(2, 3, 5, 7);
+            PNGPixelArray png_pad = png.EdgePadding(x_pad: (2, 3), y_pad: (5, 7));
 
             png_pad.Write(dirpath + "pngedgepad.png");
 
@@ -55,7 +55,7 @@ namespace PNGReadWriteTest {
 
             PNGPixelArray png = new(arr);
 
-            PNGPixelArray png_pad = png.ZeroPadding(2, 3, 5, 7);
+            PNGPixelArray png_pad = png.ZeroPadding(x_pad: (2, 3), y_pad: (5, 7));
 
             png_pad.Write(dirpath + "pngzeropad.png");
 
