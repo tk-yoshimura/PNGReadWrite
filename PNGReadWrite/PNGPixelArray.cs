@@ -325,6 +325,7 @@ namespace PNGReadWrite {
             return false;
         }
 
+        /// <summary>ピクセルを列挙する</summary>
         public IEnumerator<PNGPixel> GetEnumerator() {
             for (int i = 0; i < Pixels.Length; i += 4) {
                 yield return (Pixels[i], Pixels[i + 1], Pixels[i + 2], Pixels[i + 3]);
