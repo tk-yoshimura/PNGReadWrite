@@ -149,9 +149,7 @@
 
         /// <summary>次元順CHWのテンソルから変換</summary>
         public static PNGPixelArray FromRGBChannelFirst(float[] rgb, int width, int height) {
-            if (rgb == null) {
-                throw new ArgumentNullException(nameof(rgb));
-            }
+            ArgumentNullException.ThrowIfNull(rgb);
 
             if (rgb.Length != checked(3 * width * height)) {
                 throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
@@ -171,9 +169,8 @@
 
         /// <summary>次元順CHWのテンソルから変換</summary>
         public static PNGPixelArray FromRGBChannelFirst(float[] rgb, float[] a, int width, int height) {
-            if (rgb == null || a == null) {
-                throw new ArgumentNullException($"{nameof(rgb)},{nameof(a)}");
-            }
+            ArgumentNullException.ThrowIfNull(rgb);
+            ArgumentNullException.ThrowIfNull(a);
 
             if (rgb.Length != checked(3 * width * height) || a.Length != checked(width * height)) {
                 throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
@@ -212,9 +209,7 @@
 
         /// <summary>次元順HWCのテンソルから変換</summary>
         public static PNGPixelArray FromRGBChannelLast(float[] rgb, int width, int height) {
-            if (rgb == null) {
-                throw new ArgumentNullException(nameof(rgb));
-            }
+            ArgumentNullException.ThrowIfNull(rgb);
 
             if (rgb.Length != checked(3 * width * height)) {
                 throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
@@ -265,9 +260,7 @@
 
         /// <summary>グレースケールfloat配列から変換</summary>
         public static PNGPixelArray FromGrayscale(float[] gray, int width, int height) {
-            if (gray == null) {
-                throw new ArgumentNullException(nameof(gray));
-            }
+            ArgumentNullException.ThrowIfNull(gray);
 
             if (gray.Length != checked(width * height)) {
                 throw new ArgumentException("The specified array length is invalid. (Length = width x height)", nameof(gray));

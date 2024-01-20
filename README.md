@@ -4,7 +4,7 @@
  [PNG Suite](http://www.schaik.com/pngsuite/) passed
 
 ## Requirement
- .NET 6 - windows
+ .NET 8.0 - windows
 
 ## Install
 [Download DLL](https://github.com/tk-yoshimura/PNGReadWrite/releases)  

@@ -34,9 +34,7 @@ namespace PNGReadWrite {
                 return metadata;
             }
             set {
-                if (value == null) {
-                    throw new ArgumentNullException(nameof(metadata));
-                }
+                ArgumentNullException.ThrowIfNull(value);
 
                 metadata = (PNGMetadata)value.Clone();
             }
@@ -64,9 +62,7 @@ namespace PNGReadWrite {
         /// <summary>コンストラクタ ピクセル配列指定</summary>
         /// <remarks>ピクセル配列はコピーされる</remarks>
         public PNGPixelArray(ushort[] pixels, int width, int height) {
-            if (pixels == null) {
-                throw new ArgumentNullException(nameof(pixels));
-            }
+            ArgumentNullException.ThrowIfNull(pixels);
 
             if (width <= 0 || height <= 0) {
                 throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
@@ -84,9 +80,7 @@ namespace PNGReadWrite {
         /// <summary>コンストラクタ ピクセル配列指定</summary>
         /// <remarks>ピクセル配列はコピーされる</remarks>
         public PNGPixelArray(PNGPixel[,] pixels, bool transposed = true) {
-            if (pixels == null) {
-                throw new ArgumentNullException(nameof(pixels));
-            }
+            ArgumentNullException.ThrowIfNull(pixels);
 
             (int width, int height) = transposed
                 ? (pixels.GetLength(0), pixels.GetLength(1))
@@ -131,9 +125,7 @@ namespace PNGReadWrite {
         /// <summary>コンストラクタ ピクセル配列指定</summary>
         /// <remarks>ピクセル配列はコピーされる</remarks>
         public PNGPixelArray(PNGPixel[] pixels, int width, int height) {
-            if (pixels == null) {
-                throw new ArgumentNullException(nameof(pixels));
-            }
+            ArgumentNullException.ThrowIfNull(pixels);
 
             if (width <= 0 || height <= 0) {
                 throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
@@ -331,6 +323,12 @@ namespace PNGReadWrite {
             }
 
             return false;
+        }
+
+        public IEnumerator<PNGPixel> GetEnumerator() {
+            for (int i = 0; i < Pixels.Length; i += 4) {
+                yield return (Pixels[i], Pixels[i + 1], Pixels[i + 2], Pixels[i + 3]);
+            }
         }
 
         /// <summary>初期化</summary>

@@ -33,9 +33,7 @@ namespace PNGReadWrite {
         }
 
         internal static PNGChunk FromBytes(byte[] bin, int start_index, bool crc_check = true) {
-            if (bin == null) {
-                throw new ArgumentNullException(nameof(bin));
-            }
+            ArgumentNullException.ThrowIfNull(bin);
             if (start_index > int.MaxValue / 2) {
                 throw new OverflowException("Too long data length.");
             }
@@ -51,7 +49,7 @@ namespace PNGReadWrite {
                 throw new InvalidDataException("Invalid chunk exists.");
             }
 
-            byte[] type = new byte[4] { bin[start_index + 4], bin[start_index + 5], bin[start_index + 6], bin[start_index + 7] };
+            byte[] type = [bin[start_index + 4], bin[start_index + 5], bin[start_index + 6], bin[start_index + 7]];
 
             if (crc_check) {
                 UInt32 crc_expect = CRC32(bin.Skip(start_index + 4).Take((int)length + 4));
@@ -77,7 +75,7 @@ namespace PNGReadWrite {
             byte[] length = PNGBitConverter.FromUInt32((UInt32)chunk.data.Length);
             byte[] crc = PNGBitConverter.FromUInt32(CRC32(chunk.type.Concat(chunk.data)));
 
-            return length.Concat(chunk.type).Concat(chunk.data).Concat(crc).ToArray();
+            return [.. length, .. chunk.type, .. chunk.data, .. crc];
         }
 
         static PNGChunk() {
@@ -114,7 +112,7 @@ namespace PNGReadWrite {
                 throw new ArgumentException("Too long data length.");
             }
 
-            List<PNGChunk> chunks = new();
+            List<PNGChunk> chunks = [];
 
             int start_index = Signature.Length;
 
@@ -133,7 +131,7 @@ namespace PNGReadWrite {
         }
 
         internal static List<byte> ChunksToBytes(IEnumerable<PNGChunk> chunks) {
-            List<byte> bytes = Signature.ToList();
+            List<byte> bytes = [.. Signature];
 
             foreach (PNGChunk chunk in chunks) {
                 bytes.AddRange(ToBytes(chunk));
@@ -185,7 +183,7 @@ namespace PNGReadWrite {
             }
 
             byte[] type = PNGBitConverter.FromString(Type);
-            byte[] data = { (byte)rendering_intent };
+            byte[] data = [(byte)rendering_intent];
 
             return Create(type, data);
         }
@@ -222,18 +220,19 @@ namespace PNGReadWrite {
         internal static PNGChunk Create(PNGChromaticityPoints points) {
             byte[] type = PNGBitConverter.FromString(Type);
 
-            List<byte> data = new();
+            List<byte> data =
+            [
+                .. PNGBitConverter.FromUInt32((UInt32)points.WhiteX),
+                .. PNGBitConverter.FromUInt32((UInt32)points.WhiteY),
+                .. PNGBitConverter.FromUInt32((UInt32)points.RedX),
+                .. PNGBitConverter.FromUInt32((UInt32)points.RedY),
+                .. PNGBitConverter.FromUInt32((UInt32)points.GreenX),
+                .. PNGBitConverter.FromUInt32((UInt32)points.GreenY),
+                .. PNGBitConverter.FromUInt32((UInt32)points.BlueX),
+                .. PNGBitConverter.FromUInt32((UInt32)points.BlueY),
+            ];
 
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.WhiteX));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.WhiteY));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.RedX));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.RedY));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.GreenX));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.GreenY));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.BlueX));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)points.BlueY));
-
-            return Create(type, data.ToArray());
+            return Create(type, [.. data]);
         }
     }
 
@@ -263,12 +262,13 @@ namespace PNGReadWrite {
         internal static PNGChunk Create(DateTime time) {
             byte[] type = PNGBitConverter.FromString(Type);
 
-            List<byte> data = new();
+            List<byte> data =
+            [
+                .. PNGBitConverter.FromUInt16((UInt16)time.Year),
+                .. new byte[] { (byte)time.Month, (byte)time.Day, (byte)time.Hour, (byte)time.Minute, (byte)time.Second },
+            ];
 
-            data.AddRange(PNGBitConverter.FromUInt16((UInt16)time.Year));
-            data.AddRange(new byte[] { (byte)time.Month, (byte)time.Day, (byte)time.Hour, (byte)time.Minute, (byte)time.Second });
-
-            return Create(type, data.ToArray());
+            return Create(type, [.. data]);
         }
     }
 
@@ -298,13 +298,14 @@ namespace PNGReadWrite {
         internal static PNGChunk Create((double x, double y) dpi) {
             byte[] type = PNGBitConverter.FromString(Type);
 
-            List<byte> data = new();
+            List<byte> data =
+            [
+                .. PNGBitConverter.FromUInt32((UInt32)(dpi.x * inch_per_meter)),
+                .. PNGBitConverter.FromUInt32((UInt32)(dpi.y * inch_per_meter)),
+                0x01, // meter
+            ];
 
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)(dpi.x * inch_per_meter)));
-            data.AddRange(PNGBitConverter.FromUInt32((UInt32)(dpi.y * inch_per_meter)));
-            data.Add(0x01); // meter
-
-            return Create(type, data.ToArray());
+            return Create(type, [.. data]);
         }
     }
 }

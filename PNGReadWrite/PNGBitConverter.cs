@@ -4,7 +4,7 @@ namespace PNGReadWrite {
     internal static class PNGBitConverter {
         internal static byte[] FromUInt32(UInt32 value) {
             unchecked {
-                return new byte[4] { (byte)((value >> 24) & 0xFF), (byte)((value >> 16) & 0xFF), (byte)((value >> 8) & 0xFF), (byte)(value & 0xFF) };
+                return [(byte)((value >> 24) & 0xFF), (byte)((value >> 16) & 0xFF), (byte)((value >> 8) & 0xFF), (byte)(value & 0xFF)];
             }
         }
 
@@ -16,7 +16,7 @@ namespace PNGReadWrite {
 
         internal static byte[] FromUInt16(UInt16 value) {
             unchecked {
-                return new byte[2] { (byte)((value >> 8) & 0xFF), (byte)(value & 0xFF) };
+                return [(byte)((value >> 8) & 0xFF), (byte)(value & 0xFF)];
             }
         }
 

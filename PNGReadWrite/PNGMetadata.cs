@@ -243,7 +243,7 @@ namespace PNGReadWrite {
         }
 
         /// <summary>文字列化</summary>
-        public override string ToString() {
+        public override readonly string ToString() {
             return $"{(double)val / val_times}";
         }
     }

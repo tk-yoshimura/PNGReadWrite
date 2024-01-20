@@ -3,9 +3,7 @@
 
         /// <summary>生配列からピクセル配列へ変換</summary>
         private static ushort[] FromRawPixels(Array pixels, int width, int height, PNGFormat format) {
-            if (pixels == null) {
-                throw new ArgumentNullException(nameof(pixels));
-            }
+            ArgumentNullException.ThrowIfNull(pixels);
 
             if (!Enum.IsDefined(typeof(PNGFormat), format) || format == PNGFormat.Undefined) {
                 throw new NotSupportedException("Unsupported format.");

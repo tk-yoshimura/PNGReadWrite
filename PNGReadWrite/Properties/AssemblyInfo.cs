@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PNGReadWrite")]
-[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2019-2023")]
+[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2019-2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("BD0AE5E2-172E-4E2A-93BA-523FC390A3CA")]
 
-[assembly: AssemblyVersion("4.1.1.*")]
+[assembly: AssemblyVersion("4.2.0.*")]

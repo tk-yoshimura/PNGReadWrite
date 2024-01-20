@@ -79,7 +79,7 @@ namespace PNGReadWrite {
             List<PNGChunk> chunks = PNGChunk.EnumerateChunk(bytes, crc_check: false);
             Metadata.Write(chunks);
 
-            bytes = PNGChunk.ChunksToBytes(chunks).ToArray();
+            bytes = [.. PNGChunk.ChunksToBytes(chunks)];
 
             stream.Write(bytes, 0, bytes.Length);
         }

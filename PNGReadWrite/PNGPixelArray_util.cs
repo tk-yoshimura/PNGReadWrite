@@ -7,9 +7,7 @@
         /// <param name="pixelarray">ピクセルデータ</param>
         /// <param name="expands">アルファ値が非0のピクセルからの距離</param>
         public static PNGPixelArray FillZeroAlphaPixels(PNGPixelArray pixelarray, int expands = 16) {
-            if (pixelarray == null) {
-                throw new ArgumentNullException(nameof(pixelarray));
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray);
 
             pixelarray = pixelarray.Copy();
 
@@ -36,10 +34,10 @@
 
                         int r = 0, g = 0, b = 0, n = 0;
 
-                        Action<PNGPixel> add_color = (cr) => {
+                        void add_color(PNGPixel cr) {
                             r += cr.R; g += cr.G; b += cr.B;
                             n++;
-                        };
+                        }
 
                         if (x >= 1 && generation_table[x - 1, y] < generation) {
                             add_color(pixelarray[x - 1, y]);
@@ -72,9 +70,8 @@
         /// <param name="pixelarray">ピクセルデータ</param>
         /// <param name="transform_func">合成関数</param>
         public static PNGPixelArray Transform(PNGPixelArray pixelarray, Func<PNGPixel, PNGPixel> transform_func) {
-            if (pixelarray == null || transform_func == null) {
-                throw new ArgumentNullException($"{nameof(pixelarray)}, {nameof(transform_func)}");
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray);
+            ArgumentNullException.ThrowIfNull(transform_func);
 
             PNGPixelArray png = new(pixelarray.Size);
 
@@ -85,14 +82,55 @@
             return png;
         }
 
+        public static int Count(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
+            ArgumentNullException.ThrowIfNull(pixelarray);
+            ArgumentNullException.ThrowIfNull(condition);
+
+            int count = 0;
+
+            foreach (PNGPixel pixel in pixelarray) {
+                if (condition(pixel)) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        public static bool Any(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
+            ArgumentNullException.ThrowIfNull(pixelarray);
+            ArgumentNullException.ThrowIfNull(condition);
+
+            foreach (PNGPixel pixel in pixelarray) {
+                if (condition(pixel)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool All(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
+            ArgumentNullException.ThrowIfNull(pixelarray);
+            ArgumentNullException.ThrowIfNull(condition);
+
+            foreach (PNGPixel pixel in pixelarray) {
+                if (!condition(pixel)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>PNGを合成する</summary>
         /// <param name="pixelarray1">ピクセルデータ1</param>
         /// <param name="pixelarray2">ピクセルデータ2</param>
         /// <param name="blend_func">合成関数</param>
         public static PNGPixelArray Blend(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2, Func<PNGPixel, PNGPixel, PNGPixel> blend_func) {
-            if (pixelarray1 == null || pixelarray2 == null || blend_func == null) {
-                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}, {nameof(blend_func)}");
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray1);
+            ArgumentNullException.ThrowIfNull(pixelarray2);
+            ArgumentNullException.ThrowIfNull(blend_func);
 
             if (pixelarray1.Size != pixelarray2.Size) {
                 throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
@@ -111,9 +149,8 @@
         /// <param name="pixelarray1">ピクセルデータ1</param>
         /// <param name="pixelarray2">ピクセルデータ2</param>
         public static PNGPixelArray operator +(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
-            if (pixelarray1 == null || pixelarray2 == null) {
-                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray1);
+            ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
                 throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
@@ -132,9 +169,8 @@
         /// <param name="pixelarray1">ピクセルデータ1</param>
         /// <param name="pixelarray2">ピクセルデータ2</param>
         public static PNGPixelArray operator -(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
-            if (pixelarray1 == null || pixelarray2 == null) {
-                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray1);
+            ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
                 throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
@@ -153,9 +189,8 @@
         /// <param name="pixelarray1">ピクセルデータ1</param>
         /// <param name="pixelarray2">ピクセルデータ2</param>
         public static PNGPixelArray operator *(PNGPixelArray pixelarray1, PNGPixelArray pixelarray2) {
-            if (pixelarray1 == null || pixelarray2 == null) {
-                throw new ArgumentNullException($"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
-            }
+            ArgumentNullException.ThrowIfNull(pixelarray1);
+            ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
                 throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");

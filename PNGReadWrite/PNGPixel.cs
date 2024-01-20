@@ -5,11 +5,12 @@ using System.Runtime.InteropServices;
 namespace PNGReadWrite {
 
     /// <summary>PNGピクセル</summary>
+    /// <remarks>コンストラクタ(uint16)</remarks>
     [StructLayout(LayoutKind.Sequential)]
     [DebuggerDisplay("{ToFloatString(),nq}")]
-    public partial struct PNGPixel {
+    public partial struct PNGPixel(ushort r, ushort g, ushort b, ushort a = 0xFFFF) {
         /// <summary>RGB輝度値およびアルファ値</summary>
-        public ushort R, G, B, A;
+        public ushort R = r, G = g, B = b, A = a;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const float inv_rangef = 1f / ushort.MaxValue;
@@ -23,21 +24,13 @@ namespace PNGReadWrite {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal const double epsd = 5e-15d * ushort.MaxValue;
 
-        /// <summary>コンストラクタ(uint16)</summary>
-        public PNGPixel(ushort r, ushort g, ushort b, ushort a = 0xFFFF) {
-            R = r;
-            G = g;
-            B = b;
-            A = a;
-        }
-
         /// <summary>タプル変換</summary>
         public static implicit operator PNGPixel((ushort r, ushort g, ushort b) cr) {
             return new PNGPixel(cr.r, cr.g, cr.b);
         }
 
         /// <summary>タプル分解</summary>
-        public void Deconstruct(out ushort r, out ushort g, out ushort b) {
+        public readonly void Deconstruct(out ushort r, out ushort g, out ushort b) {
             (r, g, b) = (R, G, B);
         }
 
@@ -47,7 +40,7 @@ namespace PNGReadWrite {
         }
 
         /// <summary>タプル分解</summary>
-        public void Deconstruct(out ushort r, out ushort g, out ushort b, out ushort a) {
+        public readonly void Deconstruct(out ushort r, out ushort g, out ushort b, out ushort a) {
             (r, g, b, a) = (R, G, B, A);
         }
 
@@ -180,39 +173,39 @@ namespace PNGReadWrite {
         }
 
         /// <summary>色指定(int32 [0, 65535])</summary>
-        public (int r, int g, int b, int a) ToInt32() {
+        public readonly (int r, int g, int b, int a) ToInt32() {
             return (R, G, B, A);
         }
 
         /// <summary>色取得(float [0, 1])</summary>
-        public (float r, float g, float b, float a) ToSingle() {
+        public readonly (float r, float g, float b, float a) ToSingle() {
             return (R * inv_rangef, G * inv_rangef, B * inv_rangef, A * inv_rangef);
         }
 
         /// <summary>色取得(double [0, 1])</summary>
-        public (double r, double g, double b, double a) ToDouble() {
+        public readonly (double r, double g, double b, double a) ToDouble() {
             return (R * inv_ranged, G * inv_ranged, B * inv_ranged, A * inv_ranged);
         }
 
         /// <summary>オブジェクト比較</summary>
-        public override bool Equals(object? obj) {
+        public override readonly bool Equals(object? obj) {
             return obj is not null && obj is PNGPixel pixel && this == pixel;
         }
 
         /// <summary>ハッシュ値</summary>
-        public override int GetHashCode() {
+        public override readonly int GetHashCode() {
             return (R | (G << 16)) ^ (B | (A << 16));
         }
 
         /// <summary>文字列化</summary>
         /// <remarks>16進数表記 RRRR GGGG BBBB AAAA</remarks>
-        public override string ToString() {
+        public override readonly string ToString() {
             return $"{R:X4} {G:X4} {B:X4} {A:X4}";
         }
 
         /// <summary>文字列化</summary>
         /// <remarks>浮動小数点表記 .4f</remarks>
-        public string ToFloatString() {
+        public readonly string ToFloatString() {
             return $"{(R * inv_rangef):F4} {(G * inv_rangef):F4} {(B * inv_rangef):F4} {(A * inv_rangef):F4}";
         }
     }
