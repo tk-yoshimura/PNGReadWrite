@@ -82,6 +82,7 @@
             return png;
         }
 
+        /// <summary>条件と適合するピクセルを計数する</summary>
         public static int Count(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
             ArgumentNullException.ThrowIfNull(pixelarray);
             ArgumentNullException.ThrowIfNull(condition);
@@ -97,6 +98,7 @@
             return count;
         }
 
+        /// <summary>条件と適合するピクセルがあるかを判定する</summary>
         public static bool Any(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
             ArgumentNullException.ThrowIfNull(pixelarray);
             ArgumentNullException.ThrowIfNull(condition);
@@ -110,6 +112,7 @@
             return false;
         }
 
+        /// <summary>すべてのピクセルが条件と適合するかを判定する</summary>
         public static bool All(PNGPixelArray pixelarray, Func<PNGPixel, bool> condition) {
             ArgumentNullException.ThrowIfNull(pixelarray);
             ArgumentNullException.ThrowIfNull(condition);
