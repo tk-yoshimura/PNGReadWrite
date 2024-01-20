@@ -102,4 +102,4 @@ See also: [Tests](https://github.com/tk-yoshimura/PNGReadWrite/tree/main/PNGRead
 
 ## Author
 
-[tk-yoshimura](https://github.com/tk-yoshimura)
+[T.Yoshimura](https://github.com/tk-yoshimura)
