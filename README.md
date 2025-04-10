@@ -40,13 +40,9 @@ png_copy.Write(dirpath + "pngcopy_regionclip.png");
 
 ### Open
 ``` cs
-PNGPixelArray png = new();
-png.Read(filepath);
+PNGPixelArray png = PNGPixelArray.Read(filepath);
 ```
 
-``` cs
-PNGPixelArray png = new(filepath);
-```
 
 ### GDI+(Bitmap) &lt;-&gt; PNGPixelArray
 ```cs
@@ -61,7 +57,7 @@ using (Graphics g = Graphics.FromImage(bitmap)) {
 PNGPixelArray png_black = bitmap;
 png_black.Write(dirpath + "gdi_test.png");
 
-PNGPixelArray png_read = new(dirpath + "gdi_test.png");
+PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "gdi_test.png");
 
 bitmap = (Bitmap)png_read;
 using (Graphics g = Graphics.FromImage(bitmap)) {
