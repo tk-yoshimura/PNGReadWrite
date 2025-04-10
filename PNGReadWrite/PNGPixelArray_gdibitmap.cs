@@ -8,11 +8,8 @@ namespace PNGReadWrite {
 
         /// <summary>GDI+ビットマップから変換</summary>
         [SuppressMessage("Interoperability", "CA1416")]
-        private void FromGDIBitmap(Bitmap bitmap) {
-            if (bitmap == null) {
-                Clear();
-                throw new ArgumentNullException(nameof(bitmap));
-            }
+        private static PNGPixelArray FromGDIBitmap(Bitmap bitmap, PNGPixelArray array) {
+            ArgumentNullException.ThrowIfNull(bitmap, nameof(bitmap));
 
             BitmapData data = bitmap.LockBits(
                 new Rectangle(0, 0, bitmap.Width, bitmap.Height),
@@ -24,10 +21,12 @@ namespace PNGReadWrite {
             Marshal.Copy(data.Scan0, buf, 0, buf.Length);
             bitmap.UnlockBits(data);
 
-            this.Pixels = FromRawPixels(buf, bitmap.Width, bitmap.Height, PNGFormat.RGBA32);
+            array.Pixels = FromRawPixels(buf, bitmap.Width, bitmap.Height, PNGFormat.RGBA32);
 
-            this.Width = bitmap.Width;
-            this.Height = bitmap.Height;
+            array.Width = bitmap.Width;
+            array.Height = bitmap.Height;
+
+            return array;
         }
 
         /// <summary>GDI+ビットマップへ変換</summary>
@@ -52,9 +51,8 @@ namespace PNGReadWrite {
         /// <summary>GDI+ビットマップから変換</summary>
         public static implicit operator PNGPixelArray(Bitmap bitmap) {
             PNGPixelArray pixelarray = new();
-            pixelarray.FromGDIBitmap(bitmap);
 
-            return pixelarray;
+            return FromGDIBitmap(bitmap, pixelarray);
         }
 
         /// <summary>GDI+ビットマップへ変換</summary>

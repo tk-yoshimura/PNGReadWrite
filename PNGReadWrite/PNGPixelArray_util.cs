@@ -136,7 +136,10 @@
             ArgumentNullException.ThrowIfNull(blend_func);
 
             if (pixelarray1.Size != pixelarray2.Size) {
-                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+                throw new ArgumentException(
+                    "Mismatch array size.",
+                    $"{nameof(pixelarray1)}, {nameof(pixelarray2)}"
+                );
             }
 
             PNGPixelArray png = new(pixelarray1.Size);
@@ -156,7 +159,10 @@
             ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
-                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+                throw new ArgumentException(
+                    "Mismatch array size.",
+                    $"{nameof(pixelarray1)}, {nameof(pixelarray2)}"
+                );
             }
 
             PNGPixelArray png = new(pixelarray1.Size);
@@ -176,7 +182,10 @@
             ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
-                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+                throw new ArgumentException(
+                    "Mismatch array size.",
+                    $"{nameof(pixelarray1)}, {nameof(pixelarray2)}"
+                );
             }
 
             PNGPixelArray png = new(pixelarray1.Size);
@@ -196,7 +205,10 @@
             ArgumentNullException.ThrowIfNull(pixelarray2);
 
             if (pixelarray1.Size != pixelarray2.Size) {
-                throw new ArgumentException("Mismatch array size.", $"{nameof(pixelarray1)}, {nameof(pixelarray2)}");
+                throw new ArgumentException(
+                    "Mismatch array size.",
+                    $"{nameof(pixelarray1)}, {nameof(pixelarray2)}"
+                );
             }
 
             PNGPixelArray png = new(pixelarray1.Size);
@@ -206,6 +218,21 @@
             }
 
             return png;
+        }
+
+        /// <summary>指定色で初期化</summary>
+        /// <param name="pixelarray">ピクセルデータ</param>
+        public static void Clear(PNGPixelArray pixelarray) {
+            Clear(pixelarray, PNGPixel.Transparent);
+        }
+
+        /// <summary>指定色で初期化</summary>
+        /// <param name="pixelarray">ピクセルデータ</param>
+        /// <param name="color">色</param>
+        public static void Clear(PNGPixelArray pixelarray, PNGPixel color) {
+            for (int i = 0, length = pixelarray.PixelCounts; i < length; i++) {
+                pixelarray[i] = color;
+            }
         }
     }
 }

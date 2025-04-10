@@ -15,14 +15,12 @@ namespace PNGReadWriteTest {
 
             Assert.IsTrue(filepaths.Any(), "Please set PNGSuite path...");
 
-            PNGPixelArray png = new();
-
             foreach (var filepath in filepaths) {
                 string filename = filepath[dirpath.Length..];
                 string filename_withoutext = filename[..^".png".Length];
 
                 try {
-                    png.Read(filepath);
+                    PNGPixelArray png = PNGPixelArray.Read(filepath);
 
                     png.Write($"{dirpath_result}{filename_withoutext}_rgb24.png", PNGFormat.RGB24);
                     png.Write($"{dirpath_result}{filename_withoutext}_rgb48.png", PNGFormat.RGB48);
@@ -57,7 +55,7 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "rgba64.png", PNGFormat.RGBA64);
 
-            PNGPixelArray png2 = new(dirpath + "rgba64.png");
+            PNGPixelArray png2 = PNGPixelArray.Read(dirpath + "rgba64.png");
 
             Assert.IsTrue(arr.SequenceEqual(png2.Pixels));
         }
@@ -76,7 +74,7 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "rgb48.png", PNGFormat.RGB48);
 
-            PNGPixelArray png2 = new(dirpath + "rgb48.png");
+            PNGPixelArray png2 = PNGPixelArray.Read(dirpath + "rgb48.png");
 
             Assert.IsTrue(arr.SequenceEqual(png2.Pixels));
         }
@@ -99,7 +97,7 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "rgba64_4.png", PNGFormat.RGBA64);
 
-            PNGPixelArray png2 = new(dirpath + "rgba64_4.png");
+            PNGPixelArray png2 = PNGPixelArray.Read(dirpath + "rgba64_4.png");
 
             PNGPixel[,] arr2 = (PNGPixel[,])png2;
 
@@ -204,6 +202,8 @@ namespace PNGReadWriteTest {
             png_rgba_hwc.Write(dirpath + nameof(png_rgba_hwc) + ".png");
             png_rgb_a_hwc.Write(dirpath + nameof(png_rgb_a_hwc) + ".png");
             png_gray.Write(dirpath + nameof(png_gray) + ".png");
+
+            PNGPixelArray.Write(png_rgb_chw, dirpath + nameof(png_rgb_chw) + "_static.png");
         }
     }
 }

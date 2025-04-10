@@ -10,7 +10,10 @@
             }
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(width)}, {nameof(height)}",
+                    "The specified size is invalid."
+                );
             }
 
             if (format.Depth() == 8 && pixels.GetType().GetElementType() == typeof(byte)) {

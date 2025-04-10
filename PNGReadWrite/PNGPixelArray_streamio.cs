@@ -15,10 +15,10 @@ namespace PNGReadWrite {
         /// <exception cref="OverflowException">データサイズが1GB以上、その他オーバーフローが発生したとき</exception>
         /// <remarks>フォーマットがRGB/RGBAかつ色深度が8/16であるときWICで読み込み、そうでないときはGDI+で読み込む</remarks>
         [SuppressMessage("Interoperability", "CA1416")]
-        public void Read(Stream stream, bool crc_check = true) {
-            Clear();
-
+        public static PNGPixelArray Read(Stream stream, bool crc_check = true) {
             BitmapSource? wic_bitmap = null;
+
+            PNGPixelArray array = new();
 
             try {
                 using MemoryStream stream_memory = new();
@@ -38,14 +38,14 @@ namespace PNGReadWrite {
 
                 List<PNGChunk> chunks = PNGChunk.EnumerateChunk(bytes, crc_check);
 
-                Metadata.Read(chunks);
+                array.Metadata.Read(chunks);
             }
             catch (System.Runtime.InteropServices.COMException e) {
                 throw new FileFormatException(e.Message);
             }
 
             if (wic_bitmap.Format.ToPNGFormat() != PNGFormat.Undefined) {
-                FromWICBitmap(wic_bitmap);
+                return FromWICBitmap(wic_bitmap, array);
             }
             else {
                 Bitmap? gdi_bitmap;
@@ -56,7 +56,7 @@ namespace PNGReadWrite {
                     throw new FileFormatException(e.Message);
                 }
 
-                FromGDIBitmap(gdi_bitmap);
+                return FromGDIBitmap(gdi_bitmap, array);
             }
         }
 

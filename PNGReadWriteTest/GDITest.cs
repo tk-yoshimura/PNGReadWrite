@@ -20,7 +20,7 @@ namespace PNGReadWriteTest {
             PNGPixelArray png_black = bitmap;
             png_black.Write(dirpath + "gdi_test.png");
 
-            PNGPixelArray png_read = new(dirpath + "gdi_test.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "gdi_test.png");
 
             bitmap = (Bitmap)png_read;
             using (Graphics g = Graphics.FromImage(bitmap)) {

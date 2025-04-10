@@ -152,7 +152,10 @@
             ArgumentNullException.ThrowIfNull(rgb);
 
             if (rgb.Length != checked(3 * width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 3 x width x height)",
+                    nameof(rgb)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -173,7 +176,10 @@
             ArgumentNullException.ThrowIfNull(a);
 
             if (rgb.Length != checked(3 * width * height) || a.Length != checked(width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 3 x width x height)",
+                    nameof(rgb)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -191,7 +197,10 @@
         /// <summary>次元順CHWのテンソルから変換</summary>
         public static PNGPixelArray FromRGBAChannelFirst(float[] rgba, int width, int height) {
             if (rgba.Length != checked(4 * width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 4 x width x height)", nameof(rgba));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 4 x width x height)",
+                    nameof(rgba)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -212,7 +221,10 @@
             ArgumentNullException.ThrowIfNull(rgb);
 
             if (rgb.Length != checked(3 * width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 3 x width x height)",
+                    nameof(rgb)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -231,7 +243,10 @@
             }
 
             if (rgb.Length != checked(3 * width * height) || a.Length != checked(width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 3 x width x height)", nameof(rgb));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 3 x width x height)",
+                    nameof(rgb)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -246,7 +261,10 @@
         /// <summary>次元順HWCのテンソルから変換</summary>
         public static PNGPixelArray FromRGBAChannelLast(float[] rgba, int width, int height) {
             if (rgba.Length != checked(4 * width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 4 x width x height)", nameof(rgba));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 4 x width x height)",
+                    nameof(rgba)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -263,7 +281,10 @@
             ArgumentNullException.ThrowIfNull(gray);
 
             if (gray.Length != checked(width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = width x height)", nameof(gray));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = width x height)",
+                    nameof(gray)
+                );
             }
 
             PNGPixelArray pixelarray = new(width, height);

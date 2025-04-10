@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace PNGReadWrite {
@@ -42,16 +41,24 @@ namespace PNGReadWrite {
 
         /// <summary>コンストラクタ</summary>
         public PNGPixelArray() {
-            Clear();
+            Pixels = new ushort[4];
+            Width = Height = 1;
+            Metadata = PNGMetadata.Default;
         }
 
         /// <summary>コンストラクタ 大きさ指定</summary>
         public PNGPixelArray((int width, int height) size) : this(size.width, size.height) { }
 
         /// <summary>コンストラクタ 大きさ指定</summary>
+        public PNGPixelArray(Size size) : this(size.Width, size.Height) { }
+
+        /// <summary>コンストラクタ 大きさ指定</summary>
         public PNGPixelArray(int width, int height) {
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(width)}, {nameof(height)}",
+                    "The specified size is invalid."
+                );
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];
@@ -65,11 +72,17 @@ namespace PNGReadWrite {
             ArgumentNullException.ThrowIfNull(pixels);
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(width)}, {nameof(height)}",
+                    "The specified size is invalid."
+                );
             }
 
             if (pixels.Length != checked(4 * width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = 4 x width x height)", nameof(pixels));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = 4 x width x height)",
+                    nameof(pixels)
+                );
             }
 
             this.Pixels = (ushort[])pixels.Clone();
@@ -87,7 +100,10 @@ namespace PNGReadWrite {
                 : (pixels.GetLength(1), pixels.GetLength(0));
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(width)}, {nameof(height)}",
+                    "The specified size is invalid."
+                );
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];
@@ -128,11 +144,17 @@ namespace PNGReadWrite {
             ArgumentNullException.ThrowIfNull(pixels);
 
             if (width <= 0 || height <= 0) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)}, {nameof(height)}");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(width)}, {nameof(height)}",
+                    "The specified size is invalid."
+                );
             }
 
             if (pixels.Length != checked(width * height)) {
-                throw new ArgumentException("The specified array length is invalid. (Length = width x height)", nameof(pixels));
+                throw new ArgumentException(
+                    "The specified array length is invalid. (Length = width x height)",
+                    nameof(pixels)
+                );
             }
 
             this.Pixels = new ushort[checked(4 * width * height)];
@@ -150,16 +172,6 @@ namespace PNGReadWrite {
                     }
                 }
             }
-        }
-
-        /// <summary>コンストラクタ ファイル名指定</summary>
-        /// <exception cref="FileNotFoundException">ファイルが存在しないとき</exception>
-        /// <exception cref="FileFormatException">ファイル形式が不正であるとき</exception>
-        /// <exception cref="NotSupportedException">コーデックが対応していないとき</exception>
-        /// <exception cref="InvalidDataException">CRCまたはチャンクが不正であるとき</exception>
-        /// <exception cref="OverflowException">データサイズが1GB以上、その他オーバーフローが発生したとき</exception>
-        public PNGPixelArray(string filepath) {
-            Read(filepath);
         }
 
         /// <summary>インデクサ</summary>
@@ -185,7 +197,10 @@ namespace PNGReadWrite {
         public PNGPixel this[int x, int y] {
             get {
                 if (!InRange(x, y)) {
-                    throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                    throw new ArgumentOutOfRangeException(
+                        $"{nameof(x)},{nameof(y)}",
+                        "The specified coordinates is out of bounds."
+                        );
                 }
 
                 int index = 4 * (x + y * Width);
@@ -194,7 +209,10 @@ namespace PNGReadWrite {
             }
             set {
                 if (!InRange(x, y)) {
-                    throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                    throw new ArgumentOutOfRangeException(
+                        $"{nameof(x)},{nameof(y)}",
+                        "The specified coordinates is out of bounds."
+                        );
                 }
 
                 int index = 4 * (x + y * Width);
@@ -330,14 +348,6 @@ namespace PNGReadWrite {
             for (int i = 0; i < Pixels.Length; i += 4) {
                 yield return (Pixels[i], Pixels[i + 1], Pixels[i + 2], Pixels[i + 3]);
             }
-        }
-
-        /// <summary>初期化</summary>
-        /// <remarks>1x1のピクセルデータとして初期化される</remarks>
-        public void Clear() {
-            Pixels = new ushort[4];
-            Width = Height = 1;
-            Metadata = PNGMetadata.Default;
         }
 
         /// <summary>クローン</summary>

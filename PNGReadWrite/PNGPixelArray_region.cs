@@ -4,10 +4,16 @@
         /// <summary>領域コピー</summary>
         public PNGPixelArray RegionCopy(int x, int y, int width, int height) {
             if (width < 1 || height < 1) {
-                throw new ArgumentException("The specified size is invalid.", $"{nameof(width)},{nameof(height)}");
+                throw new ArgumentException(
+                    "The specified size is invalid.",
+                    $"{nameof(width)},{nameof(height)}"
+                    );
             }
             if (x < 0 || y < 0 || x + width > Width || y + height > Height) {
-                throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(x)},{nameof(y)}",
+                    "The specified coordinates is out of bounds."
+                    );
             }
 
             PNGPixelArray pixelarray = new(width, height);
@@ -22,7 +28,10 @@
         /// <summary>領域上書き</summary>
         public void RegionOverwrite(PNGPixelArray pixelarray, int x, int y) {
             if (x < 0 || y < 0 || x + pixelarray.Width > Width || y + pixelarray.Height > Height) {
-                throw new ArgumentOutOfRangeException($"{nameof(x)},{nameof(y)}", "The specified coordinates is out of bounds.");
+                throw new ArgumentOutOfRangeException(
+                    $"{nameof(x)},{nameof(y)}",
+                    "The specified coordinates is out of bounds."
+                    );
             }
 
             for (int oy = y, iy = 0; iy < pixelarray.Height; iy++, oy++) {
@@ -42,7 +51,10 @@
                     (y, height) = y_range.GetOffsetAndLength(Height);
                 }
                 catch (ArgumentOutOfRangeException) {
-                    throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "The specified coordinates is out of bounds.");
+                    throw new ArgumentOutOfRangeException(
+                        $"{nameof(x_range)},{nameof(y_range)}",
+                        "The specified coordinates is out of bounds."
+                        );
                 }
 
                 return RegionCopy(x, y, width, height);
@@ -55,11 +67,17 @@
                     (y, height) = y_range.GetOffsetAndLength(Height);
                 }
                 catch (ArgumentOutOfRangeException) {
-                    throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "The specified coordinates is out of bounds.");
+                    throw new ArgumentOutOfRangeException(
+                        $"{nameof(x_range)},{nameof(y_range)}",
+                        "The specified coordinates is out of bounds."
+                        );
                 }
 
                 if ((width, height) != value.Size) {
-                    throw new ArgumentOutOfRangeException($"{nameof(x_range)},{nameof(y_range)}", "Mismatch size.");
+                    throw new ArgumentOutOfRangeException(
+                        $"{nameof(x_range)},{nameof(y_range)}",
+                        "Mismatch size."
+                        );
                 }
 
                 RegionOverwrite(value, x, y);

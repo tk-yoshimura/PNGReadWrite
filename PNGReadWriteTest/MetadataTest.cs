@@ -28,13 +28,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_defalut.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_defalut.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_defalut.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata?.ChromaticityPoints?.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata?.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata?.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata?.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -58,13 +58,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_gamma.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_gamma.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_gamma.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata?.ChromaticityPoints?.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata?.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata?.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata?.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -97,13 +97,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_chroma.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_chroma.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_chroma.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -127,13 +127,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_intent.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_intent.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_intent.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata?.ChromaticityPoints?.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata?.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata?.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata?.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -159,13 +159,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_recordtime.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_recordtime.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_recordtime.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata?.ChromaticityPoints?.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata?.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata?.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata?.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -189,13 +189,13 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_dpi.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_dpi.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_dpi.png");
 
             Assert.AreEqual(png.Metadata.Gamma, png_read.Metadata.Gamma);
-            Assert.AreEqual(png.Metadata.ChromaticityPoints.ToString(), png_read.Metadata.ChromaticityPoints.ToString());
-            Assert.AreEqual(png.Metadata.RenderingIntent.ToString(), png_read.Metadata.RenderingIntent.ToString());
-            Assert.AreEqual(png.Metadata.RecordTime.ToString(), png_read.Metadata.RecordTime.ToString());
-            Assert.AreEqual(png.Metadata.Dpi.ToString(), png_read.Metadata.Dpi.ToString());
+            Assert.AreEqual(png.Metadata?.ChromaticityPoints?.ToString(), png_read.Metadata?.ChromaticityPoints?.ToString());
+            Assert.AreEqual(png.Metadata?.RenderingIntent.ToString(), png_read.Metadata?.RenderingIntent.ToString());
+            Assert.AreEqual(png.Metadata?.RecordTime.ToString(), png_read.Metadata?.RecordTime.ToString());
+            Assert.AreEqual(png.Metadata?.Dpi.ToString(), png_read.Metadata?.Dpi.ToString());
         }
 
         [TestMethod]
@@ -226,7 +226,7 @@ namespace PNGReadWriteTest {
 
             png.Write(dirpath + "pngmetadata_none.png");
 
-            PNGPixelArray png_read = new(dirpath + "pngmetadata_none.png");
+            PNGPixelArray png_read = PNGPixelArray.Read(dirpath + "pngmetadata_none.png");
 
             Assert.IsNull(png_read.Metadata.Gamma);
             Assert.IsNull(png_read.Metadata.ChromaticityPoints);

@@ -5,15 +5,11 @@ namespace PNGReadWrite {
     public partial class PNGPixelArray {
 
         /// <summary>WICビットマップから変換</summary>
-        private void FromWICBitmap(BitmapSource bitmap) {
-            if (bitmap == null) {
-                Clear();
-                throw new ArgumentNullException(nameof(bitmap));
-            }
+        private static PNGPixelArray FromWICBitmap(BitmapSource bitmap, PNGPixelArray array) {
+            ArgumentNullException.ThrowIfNull(bitmap, nameof(bitmap));
 
             PNGFormat format = bitmap.Format.ToPNGFormat();
             if (format == PNGFormat.Undefined) {
-                Clear();
                 throw new NotSupportedException("Invalid image pixel format.");
             }
 
@@ -24,7 +20,7 @@ namespace PNGReadWrite {
                     byte[] pixels = new byte[checked(3 * bitmap.PixelWidth * bitmap.PixelHeight)];
                     bitmap.CopyPixels(pixels, stride, 0);
 
-                    this.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
+                    array.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
 
                     break;
                 }
@@ -32,7 +28,7 @@ namespace PNGReadWrite {
                     ushort[] pixels = new ushort[checked(3 * bitmap.PixelWidth * bitmap.PixelHeight)];
                     bitmap.CopyPixels(pixels, stride, 0);
 
-                    this.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
+                    array.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
 
                     break;
                 }
@@ -40,7 +36,7 @@ namespace PNGReadWrite {
                     byte[] pixels = new byte[checked(4 * bitmap.PixelWidth * bitmap.PixelHeight)];
                     bitmap.CopyPixels(pixels, stride, 0);
 
-                    this.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
+                    array.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
 
                     break;
                 }
@@ -48,15 +44,17 @@ namespace PNGReadWrite {
                     ushort[] pixels = new ushort[checked(4 * bitmap.PixelWidth * bitmap.PixelHeight)];
                     bitmap.CopyPixels(pixels, stride, 0);
 
-                    this.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
+                    array.Pixels = FromRawPixels(pixels, bitmap.PixelWidth, bitmap.PixelHeight, format);
 
                     break;
                 }
             }
 
-            this.Metadata.Dpi = (Math.Round(bitmap.DpiX * 32) / 32, Math.Round(bitmap.DpiY * 32) / 32);
-            this.Width = bitmap.PixelWidth;
-            this.Height = bitmap.PixelHeight;
+            array.Metadata.Dpi = (Math.Round(bitmap.DpiX * 32) / 32, Math.Round(bitmap.DpiY * 32) / 32);
+            array.Width = bitmap.PixelWidth;
+            array.Height = bitmap.PixelHeight;
+
+            return array;
         }
 
         /// <summary>WICビットマップへ変換</summary>
@@ -73,9 +71,8 @@ namespace PNGReadWrite {
         /// <summary>WICビットマップから変換</summary>
         public static implicit operator PNGPixelArray(BitmapSource bitmap) {
             PNGPixelArray pixelarray = new();
-            pixelarray.FromWICBitmap(bitmap);
 
-            return pixelarray;
+            return FromWICBitmap(bitmap, pixelarray);
         }
 
         /// <summary>WICビットマップへ変換</summary>
