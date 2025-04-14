@@ -13,7 +13,7 @@ namespace PNGReadWrite {
                 throw new NotSupportedException("Invalid image pixel format.");
             }
 
-            int stride = (bitmap.PixelWidth * bitmap.Format.BitsPerPixel + 7) / 8;
+            int stride = checked(bitmap.PixelWidth * bitmap.Format.BitsPerPixel + 7) / 8;
 
             switch (format) {
                 case PNGFormat.RGB24: {
@@ -62,7 +62,7 @@ namespace PNGReadWrite {
             PixelFormat pixel_format = format.ToPixelFormat();
             Array pixels = ToRawPixels(format);
 
-            int stride = (Width * pixel_format.BitsPerPixel + 7) / 8;
+            int stride = checked(Width * pixel_format.BitsPerPixel + 7) / 8;
             BitmapSource bitmap = BitmapSource.Create(Width, Height, Metadata.Dpi.x, Metadata.Dpi.y, pixel_format, null, pixels, stride);
 
             return bitmap;
