@@ -133,23 +133,23 @@ namespace PNGReadWriteTest {
             float[] rgba_chw = PNGPixelArray.RGBAChannelFirst(png);
             float[] rgba_hwc = PNGPixelArray.RGBAChannelLast(png);
 
-            Assert.AreEqual(width * height, r.Length);
+            Assert.HasCount(width * height, r);
             Assert.AreEqual(0.25f, r[0], 1e-3f);
             Assert.AreEqual(0.25f, r[width * height - 1], 1e-3f);
 
-            Assert.AreEqual(width * height, g.Length);
+            Assert.HasCount(width * height, g);
             Assert.AreEqual(0.50f, g[0], 1e-3f);
             Assert.AreEqual(0.50f, g[width * height - 1], 1e-3f);
 
-            Assert.AreEqual(width * height, b.Length);
+            Assert.HasCount(width * height, b);
             Assert.AreEqual(0.75f, b[0], 1e-3f);
             Assert.AreEqual(0.75f, b[width * height - 1], 1e-3f);
 
-            Assert.AreEqual(width * height, a.Length);
+            Assert.HasCount(width * height, a);
             Assert.AreEqual(1.00f, a[0], 1e-3f);
             Assert.AreEqual(1.00f, a[width * height - 1], 1e-3f);
 
-            Assert.AreEqual(width * height * 3, rgb_chw.Length);
+            Assert.HasCount(width * height * 3, rgb_chw);
             Assert.AreEqual(0.25f, rgb_chw[0], 1e-3f);
             Assert.AreEqual(0.25f, rgb_chw[width * height - 1], 1e-3f);
             Assert.AreEqual(0.50f, rgb_chw[width * height], 1e-3f);
@@ -157,7 +157,7 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(0.75f, rgb_chw[width * height * 2], 1e-3f);
             Assert.AreEqual(0.75f, rgb_chw[width * height * 3 - 1], 1e-3f);
 
-            Assert.AreEqual(width * height * 3, rgb_hwc.Length);
+            Assert.HasCount(width * height * 3, rgb_hwc);
             Assert.AreEqual(0.25f, rgb_hwc[0], 1e-3f);
             Assert.AreEqual(0.50f, rgb_hwc[1], 1e-3f);
             Assert.AreEqual(0.75f, rgb_hwc[2], 1e-3f);
@@ -165,7 +165,7 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(0.50f, rgb_hwc[width * height * 3 - 2], 1e-3f);
             Assert.AreEqual(0.75f, rgb_hwc[width * height * 3 - 1], 1e-3f);
 
-            Assert.AreEqual(width * height * 4, rgba_chw.Length);
+            Assert.HasCount(width * height * 4, rgba_chw);
             Assert.AreEqual(0.25f, rgba_chw[0], 1e-3f);
             Assert.AreEqual(0.25f, rgba_chw[width * height - 1], 1e-3f);
             Assert.AreEqual(0.50f, rgba_chw[width * height], 1e-3f);
@@ -175,7 +175,7 @@ namespace PNGReadWriteTest {
             Assert.AreEqual(1.00f, rgba_chw[width * height * 3], 1e-3f);
             Assert.AreEqual(1.00f, rgba_chw[width * height * 4 - 1], 1e-3f);
 
-            Assert.AreEqual(width * height * 4, rgba_hwc.Length);
+            Assert.HasCount(width * height * 4, rgba_hwc);
             Assert.AreEqual(0.25f, rgba_hwc[0], 1e-3f);
             Assert.AreEqual(0.50f, rgba_hwc[1], 1e-3f);
             Assert.AreEqual(0.75f, rgba_hwc[2], 1e-3f);
